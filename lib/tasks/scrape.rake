@@ -2,7 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 
 namespace :scrape do
-  task :update do
+  task update: [:environment] do
     Issue.all.each do |iss|
       url = iss.url
       html = open(url) do |f|
