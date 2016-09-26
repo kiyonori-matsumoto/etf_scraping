@@ -15,8 +15,8 @@
         %td= link_to issue.name, issue
         %td= issue.code
         %td= issue.url
-        %td= issue.dailies[-1].base_price
-        %td= issue.dailies[-1].issue_price
+        %td= issue.dailies[-1].try :base_price
+        %td= issue.dailies[-1].try :issue_price
         %td= link_to 'Edit', edit_issue_path(issue)
         %td= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
