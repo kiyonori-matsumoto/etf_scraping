@@ -11,6 +11,8 @@
         %dt.col-sm-3 Url:
         %dd.col-sm-9= @issue.url
 
+  = line_chart(@chart)
+
   %table.table
     %tr
       %th 日付
@@ -21,10 +23,10 @@
     - @dailies.each do |d|
       %tr
         %td=d.created_at.localtime
-        %td=d.base_price
-        %td=d.issue_price
+        %td="\u00A5%.2f" % d.base_price
+        %td="\u00A5%.2f" % d.issue_price
         %td="\u00A5" + number_to_human(d.total_assets, unit)
-        %td="\u00A5" + number_to_human(d.total_issued, unit)
+        %td=number_to_human(d.total_issued, unit)
         %td= link_to 'Delete', issue_daily_path(params[:id], d.id), method: :delete, data: { confirm: 'Are you sure?' }
 
 

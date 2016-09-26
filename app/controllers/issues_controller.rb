@@ -11,6 +11,7 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @dailies = @issue.dailies
+    @chart = @dailies.group_by_day(:created_at, "max", "issue_price")
   end
 
   # GET /issues/new
