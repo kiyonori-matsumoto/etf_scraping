@@ -1,0 +1,23 @@
+%p#notice= notice
+%h1 Listing Issues
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Code
+      %th Url
+      %th 基準価格
+      %th 株価
+      %th{:colspan => "2"}
+  %tbody
+    - @issues.each do |issue|
+      %tr
+        %td= link_to issue.name, issue
+        %td= issue.code
+        %td= issue.url
+        %td= issue.dailies[-1].base_price
+        %td= issue.dailies[-1].issue_price
+        %td= link_to 'Edit', edit_issue_path(issue)
+        %td= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'

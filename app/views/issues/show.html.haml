@@ -1,30 +1,33 @@
+- unit = {units: {hundred: "百",:thousand => "千", :million => "百万", :billion => "十億", :trillion => "兆", :quadrillion => "千兆"}, precision: 5}
 %p#notice= notice
-%p
-  %strong Name:
-  = @issue.name
-%p
-  %strong Code:
-  = @issue.code
-%p
-  %strong Url:
-  = @issue.url
 
-%table.table
-  %tr
-    %th 日付
-    %th 基準価格
-    %th 株価
-    %th 純資産総額
-    %th 発行済口数
-  - @dailies.each do |d|
+.container
+  %h1= @issue.name
+  .card
+    .card-block
+      %dl.row
+        %dt.col-sm-3 Code:
+        %dd.col-sm-9= @issue.code
+        %dt.col-sm-3 Url:
+        %dd.col-sm-9= @issue.url
+
+  %table.table
     %tr
-      %td=d.created_at
-      %td=d.base_price
-      %td=d.issue_price
-      %td=d.total_assets
-      %td=d.total_issued
+      %th 日付
+      %th 基準価格
+      %th 株価
+      %th 純資産総額
+      %th 発行済口数
+    - @dailies.each do |d|
+      %tr
+        %td=d.created_at.localtime
+        %td=d.base_price
+        %td=d.issue_price
+        %td="\u00A5" + number_to_human(d.total_assets, unit)
+        %td="\u00A5" + number_to_human(d.total_issued, unit)
+        %td= link_to 'Delete', issue_daily_path(params[:id], d.id), method: :delete, data: { confirm: 'Are you sure?' }
 
 
-= link_to 'Edit', edit_issue_path(@issue)
-|
-= link_to 'Back', issues_path
+  = link_to 'Edit', edit_issue_path(@issue)
+  |
+  = link_to 'Back', issues_path
