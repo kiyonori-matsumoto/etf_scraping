@@ -13,7 +13,8 @@ namespace :scrape do
       daily.base_price = doc.css('span.nav-value')[0].children.text.strip.gsub(/[^\d\.]/, '').to_f
       daily.issue_price = doc.css('span.nav-value')[1].children.text.strip.gsub(/[^\d\.]/, '').to_f
       daily.total_assets = doc.css('tr.totalNetAssets .data').text.strip.gsub(/[^\d\.]/, '').to_f
-      daily.total_issued = doc.css('tr.sharesOutstanding .data').text.strip.gsub(/[^\d\.]/, '').to_f
+      daily.total_issued = (doc.css('tr.sharesOutstanding').any? ? doc.css('tr.sharesOutstanding .data') : doc.css('tr.underLyingSharesOutstanding .data'))
+      .text.strip.gsub(/[^\d\.]/, '').to_f
       daily.save
     end
   end
