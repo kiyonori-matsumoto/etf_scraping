@@ -1,0 +1,30 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @issue.name
+%p
+  %strong Code:
+  = @issue.code
+%p
+  %strong Url:
+  = @issue.url
+
+%table.table
+  %tr
+    %th 日付
+    %th 基準価格
+    %th 株価
+    %th 純資産総額
+    %th 発行済口数
+  - @dailies.each do |d|
+    %tr
+      %td=d.created_at
+      %td=d.base_price
+      %td=d.issue_price
+      %td=d.total_assets
+      %td=d.total_issued
+
+
+= link_to 'Edit', edit_issue_path(@issue)
+|
+= link_to 'Back', issues_path

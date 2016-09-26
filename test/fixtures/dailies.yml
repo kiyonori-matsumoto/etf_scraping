@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  base_price: 9.99
+  issue_price: 9.99
+  total_assets: 9.99
+  total_issued: 9.99
+
+two:
+  base_price: 9.99
+  issue_price: 9.99
+  total_assets: 9.99
+  total_issued: 9.99
