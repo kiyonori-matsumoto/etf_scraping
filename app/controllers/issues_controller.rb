@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @dailies = @issue.dailies
-    @chart = @dailies.group_by_day(:created_at, "max", "issue_price")
+    @chart = @dailies.group_by_day(:created_at, "max", "end_price")
   end
 
   # GET /issues/new
@@ -71,6 +71,6 @@ class IssuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
-      params.require(:issue).permit(:name, :code, :url)
+      params.require(:issue).permit(:name, :code, :url, :company)
     end
 end

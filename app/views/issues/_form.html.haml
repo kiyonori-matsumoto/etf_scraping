@@ -1,0 +1,28 @@
+.container
+  = form_for(@issue) do |f|
+    - if @issue.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@issue.errors.count, "error")
+          prohibited this issue from being saved:
+        %ul
+          - @issue.errors.full_messages.each do |message|
+            %li= message
+    .form-group.row
+      = f.label :name, for: 'issue_name', class: 'col-xs-2 col-form-label'
+      .col-xs-10
+        = f.text_field :name, class: 'form-control'
+    .form-group.row
+      = f.label :code, for: 'issue_code', class: 'col-xs-2 col-form-label'
+      .col-xs-10
+        = f.text_field :code, class: 'form-control'
+    .form-group.row
+      = f.label :url, for: 'issue_url', class: 'col-xs-2 col-form-label'
+      .col-xs-10
+        = f.text_field :url, class: 'form-control'
+    .form-group.row
+      = f.label :company, for: 'issue_company', class: 'col-xs-2 col-form-label'
+      .col-xs-10
+        = f.text_field :company, class: 'form-control'
+    .actions
+      = f.submit class: 'btn btn-primary btn-block btn-lg'

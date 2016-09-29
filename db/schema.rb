@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926135550) do
+ActiveRecord::Schema.define(version: 20160929155433) do
 
   create_table "dailies", force: :cascade do |t|
     t.decimal  "base_price"
-    t.decimal  "issue_price"
+    t.decimal  "end_price"
     t.decimal  "total_assets"
     t.decimal  "total_issued"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "issue_id"
+    t.decimal  "start_price"
+    t.decimal  "high_price"
+    t.decimal  "low_price"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -30,6 +33,9 @@ ActiveRecord::Schema.define(version: 20160926135550) do
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "company"
   end
+
+  add_index "issues", ["code"], name: "index_issues_on_code", unique: true
 
 end
