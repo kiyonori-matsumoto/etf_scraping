@@ -54,7 +54,7 @@ namespace :scrape do
       doc = Nokogiri::HTML.parse(open(url))
     rescue OpenURI::HTTPError => e
       retries += 1
-      raise e if retries > 10
+      return r if retries > 10
       sleep(retries)
       retry
     end
