@@ -1,27 +1,29 @@
 %p#notice= notice
 %h1 Listing Issues
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th Code
-      %th Url
-      %th 基準価格
-      %th 株価
-      %th 乖離率(%)
-      %th{:colspan => "2"}
-  %tbody
-    - @issues.each do |issue|
-      - base_price = issue.dailies[-1].try :base_price
-      - end_price = issue.dailies[-1].try :end_price
+
+.container
+  %table.table
+    %thead
       %tr
-        %td= link_to issue.name, issue
-        %td= issue.code
-        %td= issue.url
-        %td= base_price
-        %td= end_price
-        %td= (base_price && end_price) ? ("%.2f" % ((end_price - base_price) / base_price * 100)) : ""
-        %td= link_to 'Edit', edit_issue_path(issue)
-        %td= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'
+        %th Name
+        %th Code
+        %th 基準価格
+        %th 株価
+        %th 乖離率(%)
+        %th{:colspan => "3"}
+    %tbody
+      - @issues.each do |issue|
+        - base_price = issue.dailies[-1].try :base_price
+        - end_price = issue.dailies[-1].try :end_price
+        - base_price_unit = base_price / issue.base_unit
+        %tr
+          %td= link_to issue.name, issue
+          %td= issue.code
+          %td= base_price
+          %td= end_price
+          %td= (base_price && end_price) ? ("%.2f" % ((end_price - base_price_unit) / base_price_unit * 100)) : ""
+          %td= link_to 'URL', issue.url
+          %td= link_to 'Edit', edit_issue_path(issue)
+          %td= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' }
+  %br/
+  = button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'

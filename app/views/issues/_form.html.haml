@@ -24,5 +24,13 @@
       = f.label :company, for: 'issue_company', class: 'col-xs-2 col-form-label'
       .col-xs-10
         = f.text_field :company, class: 'form-control'
+    .form-group.row
+      = f.label :base_unit, for: 'issue_base_unit', class: 'col-xs-2 col-form-label'
+      .col-xs-10
+        = f.text_field :base_unit, class: 'form-control'
+    .form-group.row
+      = f.label :trade_unit, for: 'issue_trade_unit', class: 'col-xs-2 col-form-label'
+      .col-xs-10
+        = f.text_field :trade_unit, class: 'form-control'
     .actions
       = f.submit class: 'btn btn-primary btn-block btn-lg'

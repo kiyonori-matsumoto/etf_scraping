@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @dailies = @issue.dailies
-    @chart = @dailies.group_by_day(:created_at, "max", "end_price")
+    @chart = @dailies.group_by_day(:created_at, 'max', 'end_price')
   end
 
   # GET /issues/new
@@ -64,13 +64,15 @@ class IssuesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_issue
-      @issue = Issue.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def issue_params
-      params.require(:issue).permit(:name, :code, :url, :company)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_issue
+    @issue = Issue.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def issue_params
+    params.require(:issue)
+          .permit(:name, :code, :url, :company, :base_unit, :trade_unit)
+  end
 end
