@@ -15,7 +15,7 @@
       - @issues.each do |issue|
         - base_price = issue.dailies[-1].try :base_price
         - end_price = issue.dailies[-1].try :end_price
-        - base_price_unit = base_price / issue.base_unit
+        - base_price_unit = base_price.try :/, issue.base_unit
         %tr
           %td= link_to issue.name, issue
           %td= issue.code
