@@ -25,8 +25,8 @@
         %td=d.created_at.localtime
         %td=d.base_price ? "\u00A5%.2f" % d.base_price : "-"
         %td=d.end_price ? "\u00A5%.2f" % d.end_price : "-"
-        %td="\u00A5" + number_to_human(d.total_assets, unit)
-        %td=d.total_issued ? number_to_human(d.total_issued, unit) : "-"
+        %td="\u00A5" + number_to_human(d.total_assets || 0, unit)
+        %td=d.total_issued ? number_to_human(d.total_issued || 0, unit) : "-"
         %td= link_to 'Delete', issue_daily_path(params[:id], d.id), method: :delete, data: { confirm: 'Are you sure?' }
 
 

@@ -24,6 +24,23 @@ namespace :scrape do
     end
   end
 
+  task daiwa: [:environment] do
+    Issue.where(company: 'daiwa').each do |iss|
+      daily = iss.dailies.new
+      tosho_info(iss.code, daily)
+
+      url = iss.url
+      doc = Nokogiri::HTML.parse(open(url, &:read))
+      doc.css('th').each do |d|
+        case d.text
+        when '基準価額' then daily.base_price = conv(d.next_element.text)
+        when '純資産総額' then daily.total_assets = conv(d.next_element.text) * 100000000 #単位: 億
+        end
+      end
+      daily.save
+    end
+  end
+
   task blackrock: [:environment] do
     Issue.where(company: 'blackrock').each do |iss|
       # 東証の情報を取得する
@@ -44,7 +61,7 @@ namespace :scrape do
     end
   end
 
-  task update: [:blackrock, :nikko]
+  task update: [:blackrock, :nikko, :daiwa]
 
   def tosho_info(code, daily)
     retries = 0
@@ -75,6 +92,6 @@ namespace :scrape do
   private
 
   def conv(str)
-    str.tr(',', '').to_f
+    str.gsub(/[^\d\.]/, '').to_f
   end
 end

@@ -25,5 +25,5 @@
           %td= link_to 'URL', issue.url
           %td= link_to 'Edit', edit_issue_path(issue)
           %td= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' }
-  %br/
+  
   = button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'
