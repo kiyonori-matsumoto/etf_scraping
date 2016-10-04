@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161004110905) do
+ActiveRecord::Schema.define(version: 20161004155028) do
 
   create_table "dailies", force: :cascade do |t|
     t.decimal  "base_price"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20161004110905) do
     t.decimal  "start_price"
     t.decimal  "high_price"
     t.decimal  "low_price"
+    t.string   "issue_code"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -39,6 +40,26 @@ ActiveRecord::Schema.define(version: 20161004110905) do
   end
 
   add_index "issues", ["code"], name: "index_issues_on_code", unique: true
+
+  create_table "user_issues", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "issue_code"
+    t.decimal  "price"
+    t.integer  "num"
+    t.datetime "bought_day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_issues", ["issue_code"], name: "index_user_issues_on_issue_code"
+
+  create_table "user_settings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "yearly_deposit"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.datetime "start_date"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

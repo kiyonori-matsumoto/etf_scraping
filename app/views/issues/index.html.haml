@@ -1,28 +1,35 @@
 %p#notice= notice
 %h1 ETF価格一覧
 
-.container
+.container_dummy
   %table.table
     %thead
       %tr
-        %th Code
-        %th Name
-        %th 基準価格
+        %th 商品名
+        %th.hidden-md-down Code
+        %th.hidden-md-down 基準価格
         %th 株価
         %th 乖離率(%)
-        %th{:colspan => "2"}
+        %th.hidden-md-down{:colspan => "2"}
     %tbody
       - @issues.each do |issue|
         - base_price = issue.dailies[-1].try :base_price
         - end_price = issue.dailies[-1].try :end_price
         - base_price_unit = base_price.try :/, issue.base_unit
         %tr
-          %td= issue.code
-          %td= link_to issue.name, issue, class: %w(btn btn-secondary), role: 'button'
-          %td= base_price
-          %td= end_price
-          %td= (base_price && end_price) ? ("%.2f" % ((end_price - base_price_unit) / base_price_unit * 100)) : ""
-          %td= link_to 'URL', issue.url
-          %td= link_to 'Edit', edit_issue_path(issue)
+          %td{data: {label: '商品名'}}
+            = link_to issue.name, issue, class: %w(btn btn-secondary), role: 'button'
+          %td.hidden-md-down{data: {label: 'code'}}
+            = issue.code
+          %td.hidden-md-down{data: {label: '基準価格'}}
+            = base_price
+          %td{data: {label: '株価'}}
+            = end_price
+          %td{data: {label: '乖離率(%)'}}
+            = (base_price && end_price) ? ("%.2f" % ((end_price - base_price_unit) / base_price_unit * 100)) : ""
+          %td.hidden-md-down{data: {label: 'URL'}}
+            = link_to 'URL', issue.url
+          %td.hidden-md-down{data: {label: 'Edit'}}
+            = link_to 'Edit', edit_issue_path(issue)
 
   = button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'

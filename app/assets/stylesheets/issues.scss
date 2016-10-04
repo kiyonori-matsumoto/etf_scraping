@@ -1,3 +1,54 @@
 // Place all the styles related to the issues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// @media screen and (max-width: 480px) {
+//   table {
+//     border: none;
+//     border-collapse: collapse;
+//     width: 100%;
+//   }
+//   table thead {
+//     display: none;
+//   }
+//   table tr {
+//     border-top: 1px solid #999;
+//     display: block;
+//     margin-bottom: 20px;
+//   }
+//   table td {
+//     border-right: 1px solid #999;
+//     border-bottom: 1px solid #999;
+//     display: block;
+//     padding: 10px;
+//     text-align: right;
+//     border-left: 1px solid #999;
+//     border-bottom: 1px solid #999;
+//     padding: 10px;
+//   }
+//   table th {
+//     border-left: 1px solid #999;
+//     border-bottom: 1px solid #999;
+//     padding: 10px;
+//     background-color: #eee;
+//     text-align: left;
+//   }
+//   table td::before {
+//     content: attr(data-label);
+//     float: left;
+//     font-weight: bold;
+//   }
+// }
+@media screen and (max-width: 480px) {
+  table {
+    display: block;
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  table tbody tr {
+    margin-right: -5px;
+  }
+}

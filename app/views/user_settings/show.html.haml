@@ -1,0 +1,9 @@
+%h1 設定
+
+%dl
+  %dt 年間貯蓄額
+  %dd= number_to_currency @setting.yearly_deposit
+  %dt 開始日
+  %dd= @setting.start_date
+
+= @setting.start_date.yday / Time.new(@setting.start_date.year, 12, 31).yday.to_f * @setting.yearly_deposit
