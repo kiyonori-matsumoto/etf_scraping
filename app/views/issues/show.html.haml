@@ -9,7 +9,7 @@
         %dt.col-sm-3 Code:
         %dd.col-sm-9= @issue.code
         %dt.col-sm-3 Url:
-        %dd.col-sm-9= @issue.url
+        %dd.col-sm-9= link_to @issue.url, @issue.url
         %dt.col-sm-3 売買単位
         %dd.col-sm-9= @issue.trade_unit
 

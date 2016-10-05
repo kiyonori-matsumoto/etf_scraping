@@ -1,35 +1,52 @@
 %p#notice= notice
 %h1 ETF価格一覧
 
-.container_dummy
-  %table.table
-    %thead
-      %tr
-        %th 商品名
-        %th.hidden-md-down Code
-        %th.hidden-md-down 基準価格
-        %th 株価
-        %th 乖離率(%)
-        %th.hidden-md-down{:colspan => "2"}
-    %tbody
-      - @issues.each do |issue|
-        - base_price = issue.dailies[-1].try :base_price
-        - end_price = issue.dailies[-1].try :end_price
-        - base_price_unit = base_price.try :/, issue.base_unit
-        %tr
-          %td{data: {label: '商品名'}}
-            = link_to issue.name, issue, class: %w(btn btn-secondary), role: 'button'
-          %td.hidden-md-down{data: {label: 'code'}}
-            = issue.code
-          %td.hidden-md-down{data: {label: '基準価格'}}
-            = base_price
-          %td{data: {label: '株価'}}
-            = end_price
-          %td{data: {label: '乖離率(%)'}}
-            = (base_price && end_price) ? ("%.2f" % ((end_price - base_price_unit) / base_price_unit * 100)) : ""
-          %td.hidden-md-down{data: {label: 'URL'}}
-            = link_to 'URL', issue.url
-          %td.hidden-md-down{data: {label: 'Edit'}}
-            = link_to 'Edit', edit_issue_path(issue)
+- if user_signed_in?
+  %dl
+    %dt 年間投資額:
+    %dd= number_to_currency @yearly_deposit_with_start
+    (
+    = number_to_currency current_user.user_setting.yearly_deposit
+    )
+    %dt 累計投資額(昨日まで):
+    %dd= number_to_currency @user_stacked
+    %dt 目標投資額(本日まで):
+    %dd= number_to_currency @user_should_stacked
+    %dt 本日投資額
+    %dd= number_to_currency @today_budget
+  = scatter_chart @chart
 
-  = button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'
+%table.table
+  %thead
+    %tr
+      %th 商品名
+      %th.hidden-md-down Code
+      %th.hidden-md-down 基準価格
+      %th 株価
+      %th 乖離率(%)
+      - if user_signed_in?
+        %th 購入口数
+      %th.hidden-md-down
+  %tbody
+    - @issues.each do |issue|
+      - base_price = issue.dailies[-1].try :base_price
+      - end_price = issue.dailies[-1].try :end_price
+      - base_price_unit = base_price.try :/, issue.base_unit
+      %tr
+        %td{data: {label: '商品名'}}
+          = link_to issue.name, issue, class: %w(btn btn-secondary), role: 'button'
+        %td.hidden-md-down{data: {label: 'code'}}
+          = issue.code
+        %td.hidden-md-down{data: {label: '基準価格'}}
+          = base_price
+        %td{data: {label: '株価'}}
+          = end_price
+        %td{data: {label: '乖離率(%)'}}
+          = (base_price && end_price) ? ("%.2f" % ((end_price - base_price_unit) / base_price_unit * 100)) : ""
+        -if user_signed_in?
+          %td{data: {label: '購入口数'}}
+            = (end_price == 0) ? '?' : (@today_budget / end_price / issue.trade_unit).to_i * issue.trade_unit
+        %td.hidden-md-down{data: {label: 'Edit'}}
+          = link_to 'Edit', edit_issue_path(issue)
+
+= button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'
