@@ -8,6 +8,10 @@ class UserSettingsController < ApplicationController
   end
 
   def update
+    setting = current_user.user_setting
+    setting.yearly_deposit = user_setting_params[:yearly_deposit]
+    setting.save
+    redirect_to user_setting_path
   end
 
   private

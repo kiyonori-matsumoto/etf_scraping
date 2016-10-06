@@ -1,9 +1,16 @@
 %h1 設定
 
-%dl
-  %dt 年間貯蓄額
-  %dd= number_to_currency @setting.yearly_deposit
-  %dt 開始日
-  %dd= @setting.start_date
+=form_for @setting do |f|
+  .form-group.row
+    = f.label :yearly_deposit, "年間貯蓄額", class: %w(col-xs-2 col-form-label), for: 'user_setting_yearly_deposit'
+    .col-xs-10.input-group
+      .input-group-addon ￥
+      = f.number_field :yearly_deposit, class: 'form-control'
 
-= @setting.start_date.yday / Time.new(@setting.start_date.year, 12, 31).yday.to_f * @setting.yearly_deposit
+  =f.submit '更新', class: %w(btn btn-primary)
+
+.card
+  .card-block
+    %dl
+      %dt 開始日
+      %dd= @setting.start_date
