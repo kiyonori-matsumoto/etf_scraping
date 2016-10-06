@@ -16,7 +16,7 @@ class IssuesController < ApplicationController
         .order(bought_day: :asc)
         .inject(Hash.new(0)) {|a, e| a[e[:bought_day].to_date] += e[:price] * e[:num]; a}
       @user_stacked = @chart.reduce(0){|a, e| a += e[1]}
-      @user_should_stacked = current_user.user_setting.yearly_deposit * (Date.today.yday / Date.today.end_of_year.yday.to_f) - @yearly_deposit_with_start
+      @user_should_stacked = current_user.user_setting.yearly_deposit * (Date.today.yday / Date.today.end_of_year.yday.to_f) - (current_user.user_setting.yearly_deposit - @yearly_deposit_with_start)
 
       @today_budget = @user_should_stacked - @user_stacked
 
