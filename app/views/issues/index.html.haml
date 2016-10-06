@@ -21,10 +21,11 @@
     %tr
       %th 商品名
       %th.hidden-md-down Code
-      %th.hidden-md-down 基準価格
+      %th 基準価額
       %th 株価
       %th 乖離率(%)
       - if user_signed_in?
+        %th 所有口数
         %th 購入口数
       %th.hidden-md-down
   %tbody
@@ -37,13 +38,15 @@
           = link_to issue.name, issue, class: %w(btn btn-secondary), role: 'button'
         %td.hidden-md-down{data: {label: 'code'}}
           = issue.code
-        %td.hidden-md-down{data: {label: '基準価格'}}
+        %td{data: {label: '基準価額'}}
           = base_price
         %td{data: {label: '株価'}}
           = end_price
         %td{data: {label: '乖離率(%)'}}
           = (base_price && end_price) ? ("%.2f" % ((end_price - base_price_unit) / base_price_unit * 100)) : ""
         -if user_signed_in?
+          %td{data: {label: '所有口数'}}
+            = @user_stocks[issue.code]
           %td{data: {label: '購入口数'}}
             = (end_price == 0) ? '?' : (@today_budget / end_price / issue.trade_unit).to_i * issue.trade_unit
         %td.hidden-md-down{data: {label: 'Edit'}}

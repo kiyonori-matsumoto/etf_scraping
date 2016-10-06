@@ -9,6 +9,7 @@
       %button.btn.btn-secondary.dropdown-toggle#dropdownAccount{type: 'button', 'data-toggle' => 'dropdown', aria: {haspopup: true, expanded: false}}
         My Account
       .dropdown-menu{'aria-libelledby' => 'dropdownAccount'}
+        =link_to 'マイページ', user_issues_path, class: 'dropdown-item'
         =link_to "設定", user_setting_path, class: 'dropdown-item'
         =link_to "ログイン", new_user_session_path, class: 'dropdown-item'
         =link_to "ログアウト", destroy_user_session_path, method: :delete,  class: 'dropdown-item'

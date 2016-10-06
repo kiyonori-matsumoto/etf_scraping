@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   end
 
   resource :user_setting, only: [:show, :update]
+
+  resources :user_issues, only: [:index]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

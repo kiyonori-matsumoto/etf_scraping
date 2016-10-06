@@ -19,6 +19,8 @@ class IssuesController < ApplicationController
       @user_should_stacked = current_user.user_setting.yearly_deposit * (Date.today.yday / Date.today.end_of_year.yday.to_f) - @yearly_deposit_with_start
 
       @today_budget = @user_should_stacked - @user_stacked
+
+      @user_stocks = current_user.user_issue.group(:issue_code).sum(:num)
     end
   end
 
