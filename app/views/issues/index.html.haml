@@ -33,6 +33,8 @@
       - base_price = issue.dailies[-1].try :base_price
       - end_price = issue.dailies[-1].try :end_price
       - base_price_unit = base_price.try :/, issue.base_unit
+      - buy_number = (end_price == 0 ? 0 : (@today_budget / end_price / issue.trade_unit).to_i * issue.trade_unit)
+      - buy_number = 0 if buy_number < 0
       %tr
         %td{data: {label: '商品名'}}
           = link_to issue.name, issue, class: %w(btn btn-secondary), role: 'button'
@@ -48,7 +50,7 @@
           %td{data: {label: '所有口数'}}
             = @user_stocks[issue.code]
           %td{data: {label: '購入口数'}}
-            = (end_price == 0) ? '?' : (@today_budget / end_price / issue.trade_unit).to_i * issue.trade_unit
+            = link_to_if buy_number > 0, buy_number, new_user_issue_path(code: issue.code, price: end_price, num: buy_number)
         %td.hidden-md-down{data: {label: 'Edit'}}
           = link_to 'Edit', edit_issue_path(issue)
 

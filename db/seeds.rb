@@ -29,6 +29,11 @@ data.each do |d|
 end
 
 u = User.create(email: 'test@example.com', password: 'foobar', password_confirmation: 'foobar')
+u.user_setting.update_attributes yearly_deposit: 1000000, start_date: 4.month.ago
+# u.user_setting.yearly_deposit = 1000000
+# u.user_setting.start_date = 4.month.ago
+# u.user_setting.save
+
 10.times do |n|
   u.user_issue.create(issue_code: '1475', price: 1000 + n * 10, num: n + 1, bought_day: Date.today.days_ago(n))
 end

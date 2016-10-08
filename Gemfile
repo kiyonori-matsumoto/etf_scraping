@@ -4,6 +4,8 @@ gem 'nokogiri'
 gem 'hamlit'
 gem 'chartkick'
 gem 'dateslices'
+gem 'rails_admin'
+gem 'cancan'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
