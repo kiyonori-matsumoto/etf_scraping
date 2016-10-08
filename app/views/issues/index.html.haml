@@ -2,21 +2,28 @@
 %h1 ETF価格一覧
 
 - if user_signed_in?
-  %dl
-    %dt 年間投資額:
-    %dd= number_to_currency @yearly_deposit_with_start
-    (
-    = number_to_currency current_user.user_setting.yearly_deposit
-    )
-    %dt 累計投資額(昨日まで):
-    %dd= number_to_currency @user_stacked
-    %dt 目標投資額(本日まで):
-    %dd= number_to_currency @user_should_stacked
-    %dt 本日投資額
-    %dd= number_to_currency @today_budget
-  = scatter_chart @chart
+  .alert.alert-success.alert-dismissible.fade.in{role: 'alert'}
+    %button.close{type: 'button', 'data-dismiss' => 'alert', 'aria-label' => 'Close'}
+      %span{'aria-hidden' => 'true'} &times;
+    %h4.alert-heading 目標投資額
+    %dl.row.m-b-0
+      %dt.col-sm-3 年間投資額:
+      %dd.col-sm-9
+        = number_to_currency @yearly_deposit_with_start
+        (
+        = number_to_currency current_user.user_setting.yearly_deposit
+        )
+      %dt.col-sm-3 累計投資額(昨日まで):
+      %dd.col-sm-9= number_to_currency @user_stacked
+      %dt.col-sm-3 目標投資額(本日まで):
+      %dd.col-sm-9= number_to_currency @user_should_stacked
+      %dt.col-sm-3 本日投資額
+      %dd.col-sm-9.m-b-0= number_to_currency @today_budget
 
-%table.table
+  #chart_div
+  %script{src: 'user_issues/chart.js'}
+
+%table.table.table-bordered.table-striped
   %thead
     %tr
       %th 商品名
@@ -27,7 +34,6 @@
       - if user_signed_in?
         %th 所有口数
         %th 購入口数
-      %th.hidden-md-down
   %tbody
     - @issues.each do |issue|
       - base_price = issue.dailies[-1].try :base_price
@@ -37,7 +43,7 @@
       - buy_number = 0 if buy_number < 0
       %tr
         %td{data: {label: '商品名'}}
-          = link_to issue.name, issue, class: %w(btn btn-secondary), role: 'button'
+          = link_to issue.name, issue
         %td.hidden-md-down{data: {label: 'code'}}
           = issue.code
         %td{data: {label: '基準価額'}}
@@ -51,7 +57,3 @@
             = @user_stocks[issue.code]
           %td{data: {label: '購入口数'}}
             = link_to_if buy_number > 0, buy_number, new_user_issue_path(code: issue.code, price: end_price, num: buy_number)
-        %td.hidden-md-down{data: {label: 'Edit'}}
-          = link_to 'Edit', edit_issue_path(issue)
-
-= button_to 'New Issue', new_issue_path, method: :get, class: 'btn btn-primary'

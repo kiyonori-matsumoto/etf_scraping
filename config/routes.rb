@@ -4,13 +4,17 @@ Rails.application.routes.draw do
   root 'issues#index'
   devise_for :users
 
-  resources :issues do
+  resources :issues, only: [:index, :show] do
     resources :dailies, only: [:destroy]
   end
 
   resource :user_setting, only: [:show, :update]
 
-  resources :user_issues, only: [:index, :new, :create]
+  resources :user_issues, only: [:index, :new, :create] do
+    collection do
+      get 'chart'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
