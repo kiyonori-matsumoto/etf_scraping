@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161008163847) do
+ActiveRecord::Schema.define(version: 20161009134724) do
 
   create_table "dailies", force: :cascade do |t|
     t.decimal  "base_price"
@@ -32,11 +32,13 @@ ActiveRecord::Schema.define(version: 20161008163847) do
     t.string   "name"
     t.string   "code"
     t.string   "url"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "company"
     t.integer  "base_unit",  default: 1
     t.integer  "trade_unit", default: 1
+    t.string   "country",    default: "", null: false
+    t.string   "etf_type",   default: "", null: false
   end
 
   add_index "issues", ["code"], name: "index_issues_on_code", unique: true

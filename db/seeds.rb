@@ -28,7 +28,7 @@ data.each do |d|
   i.save
 end
 
-u = User.create(email: 'test@example.com', password: 'foobar', password_confirmation: 'foobar')
+u = User.create(email: 'test@example.com', password: 'foobar', password_confirmation: 'foobar', admin: true)
 u.user_setting.update_attributes yearly_deposit: 1000000, start_date: 4.month.ago
 # u.user_setting.yearly_deposit = 1000000
 # u.user_setting.start_date = 4.month.ago

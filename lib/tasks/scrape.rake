@@ -69,7 +69,7 @@ namespace :scrape do
     url = "http://quote.jpx.co.jp/jpx/template/quote.cgi?F=tmp/stock_detail&MKTN=T&QCODE=#{code}"
     begin
       doc = Nokogiri::HTML.parse(open(url))
-    rescue OpenURI::HTTPError => e
+    rescue OpenURI::HTTPError, SocketError => e
       retries += 1
       # return r if retries > 10
       sleep(retries > 10 ? 10 : retries)
