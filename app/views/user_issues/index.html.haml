@@ -13,7 +13,7 @@
   %tbody
     - @user_issues.each do |code, last_bought_day|
       %tr
-        %td= @issues.find_by(code: code).name
+        %td= Issue.find_by(code: code).name
         %td= last_bought_day
         %td= number_to_currency @average_price[code]
         %td= @user_issues_total[code]
