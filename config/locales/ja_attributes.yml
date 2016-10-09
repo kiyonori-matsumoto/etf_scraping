@@ -1,0 +1,12 @@
+ja:
+  attributes:
+    japan_issue: 日本株式
+    japan_bond:  日本債権
+    japan_reit:  日本リート
+    developed_issue: 先進国株式
+    developed_bond:  先進国債権
+    developed_reit:  先進国リート
+    emerging_issue: 新興国株式
+    emerging_bond:  新興国債権
+    emerging_reit:  新興国リート
+    commodity: コモディティ

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161009134724) do
+ActiveRecord::Schema.define(version: 20161009172139) do
 
   create_table "dailies", force: :cascade do |t|
     t.decimal  "base_price"
@@ -32,13 +32,14 @@ ActiveRecord::Schema.define(version: 20161009134724) do
     t.string   "name"
     t.string   "code"
     t.string   "url"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "company"
-    t.integer  "base_unit",  default: 1
-    t.integer  "trade_unit", default: 1
-    t.string   "country",    default: "", null: false
-    t.string   "etf_type",   default: "", null: false
+    t.integer  "base_unit",      default: 1
+    t.integer  "trade_unit",     default: 1
+    t.string   "country",        default: "", null: false
+    t.string   "etf_type",       default: "", null: false
+    t.string   "portfolio_type"
   end
 
   add_index "issues", ["code"], name: "index_issues_on_code", unique: true
@@ -58,9 +59,19 @@ ActiveRecord::Schema.define(version: 20161009134724) do
   create_table "user_settings", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "yearly_deposit"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.datetime "start_date"
+    t.integer  "japan_issue",     default: 0
+    t.integer  "japan_reit",      default: 0
+    t.integer  "japan_bond",      default: 0
+    t.integer  "developed_issue", default: 0
+    t.integer  "developed_reit",  default: 0
+    t.integer  "developed_bond",  default: 0
+    t.integer  "emerging_issue",  default: 0
+    t.integer  "emerging_reit",   default: 0
+    t.integer  "emerging_bond",   default: 0
+    t.integer  "commodity",       default: 0
   end
 
   create_table "users", force: :cascade do |t|

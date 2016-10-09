@@ -8,10 +8,13 @@ class UserSettingsController < ApplicationController
   end
 
   def update
-    setting = current_user.user_setting
-    setting.yearly_deposit = user_setting_params[:yearly_deposit]
-    setting.save
-    redirect_to user_setting_path
+    @setting = current_user.user_setting
+    if @setting.update user_setting_params
+      # setting.save
+      redirect_to user_setting_path
+    else
+      render :show
+    end
   end
 
   private
@@ -21,7 +24,10 @@ class UserSettingsController < ApplicationController
   end
 
   def user_setting_params
-    params.require(:user_setting).permit([:yearly_deposit])
+    params.require(:user_setting).permit([:yearly_deposit, :japan_issue,
+       :japan_reit, :japan_bond, :developed_issue, :developed_reit,
+       :developed_bond, :emerging_issue, :emerging_reit, :emerging_bond,
+       :commodity])
   end
 
 end

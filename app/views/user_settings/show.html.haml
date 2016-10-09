@@ -1,11 +1,69 @@
 %h1 設定
 
+- if @setting.errors.any?
+  .alert.alert-danger{role: 'alert'}
+    %h4.alert-heading= "#{@setting.errors.count}件のエラーがあります"
+    - @setting.errors.full_messages.each do |msg|
+      %p= msg
+
 =form_for @setting do |f|
+  %h4 目標値
   .form-group.row
-    = f.label :yearly_deposit, "年間貯蓄額", class: %w(col-xs-2 col-form-label), for: 'user_setting_yearly_deposit'
-    .col-xs-10.input-group
-      .input-group-addon ￥
+    .col-lg-4.input-group
+      .input-group-addon 年間貯蓄額
       = f.number_field :yearly_deposit, class: 'form-control'
+      .input-group-addon 円
+
+  %hr
+  %h4 ポートフォリオ
+  .form-group.row
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.japan_issue'
+      = f.number_field :japan_issue, class: 'form-control'
+      .input-group-addon %
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.japan_bond'
+      = f.number_field :japan_bond, class: 'form-control'
+      .input-group-addon %
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.japan_reit'
+      = f.number_field :japan_reit, class: 'form-control'
+      .input-group-addon %
+
+  .form-group.row
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.developed_issue'
+      = f.number_field :developed_issue, class: 'form-control'
+      .input-group-addon %
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.developed_bond'
+      = f.number_field :developed_bond, class: 'form-control'
+      .input-group-addon %
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.developed_reit'
+      = f.number_field :developed_reit, class: 'form-control'
+      .input-group-addon %
+
+
+  .form-group.row
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.emerging_issue'
+      = f.number_field :emerging_issue, class: 'form-control'
+      .input-group-addon %
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.emerging_bond'
+      = f.number_field :emerging_bond, class: 'form-control'
+      .input-group-addon %
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.emerging_reit'
+      = f.number_field :emerging_reit, class: 'form-control'
+      .input-group-addon %
+
+  .form-group.row
+    .col-lg-4.input-group
+      .input-group-addon= I18n.t 'attributes.commodity'
+      = f.number_field :commodity, class: 'form-control'
+      .input-group-addon %
 
   =f.submit '更新', class: %w(btn btn-primary)
 
