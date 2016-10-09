@@ -10,7 +10,7 @@ class UserIssuesController < ApplicationController
 
     @user_issues_total = current_user.user_issue.group(:issue_code).sum(:num)
 
-    @issues = Issue.group([:code, :name]).select([:code, :name])
+    @issues = Issue.group(:code).select(['issues.code', 'issues.name'])
 
     @average_price = current_user.user_issue
       .inject(Hash.new(0)){ |a, e| a[e[:issue_code]] += e[:price] * e[:num]; a }
