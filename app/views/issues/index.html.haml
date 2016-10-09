@@ -36,8 +36,8 @@
         %th 購入口数
   %tbody
     - @issues.each do |issue|
-      - base_price = issue.dailies[-1].try :base_price
-      - end_price = issue.dailies[-1].try :end_price
+      - base_price = issue.dailies[-1].try :base_price || 0
+      - end_price = issue.dailies[-1].try :end_price || 0
       - base_price_unit = base_price.try :/, issue.base_unit
       - buy_number = (end_price == 0 ? 0 : (@today_budget / end_price / issue.trade_unit).to_i * issue.trade_unit)
       - buy_number = 0 if buy_number < 0
