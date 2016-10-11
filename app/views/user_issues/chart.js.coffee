@@ -6,7 +6,10 @@ drawChart = ->
   data.addColumn('number', 'total')
   data.addRows(convert(<%= raw @chart.to_json %>))
 
-  options = {width: '100%', height: 300, vAxis: {format: 'currency'}}
+  options = {
+    width: '100%', height: 300, vAxis: {format: 'currency'},
+    legend: {position: 'none'}
+  }
   chart = new google.charts.Bar(document.getElementById('chart_div'))
   chart.draw(data, options)
 

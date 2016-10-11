@@ -7,8 +7,8 @@
   .pull-xs-right
     .dropdown
       %button.btn.btn-secondary.dropdown-toggle#dropdownAccount{type: 'button', 'data-toggle' => 'dropdown', aria: {haspopup: true, expanded: false}}
-        My Account
-      .dropdown-menu{'aria-libelledby' => 'dropdownAccount'}
+        %span.hidden-md-down My Account
+      .dropdown-menu.dropdown-menu-right{'aria-libelledby' => 'dropdownAccount'}
         =link_to 'マイページ', user_issues_path, class: 'dropdown-item'
         =link_to "設定", user_setting_path, class: 'dropdown-item'
         =link_to "ログイン", new_user_session_path, class: 'dropdown-item'

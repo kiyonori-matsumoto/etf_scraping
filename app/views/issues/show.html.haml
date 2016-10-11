@@ -4,7 +4,7 @@
 .container_dummy
   %h1= @issue.name
   .card
-    .card-block
+    .card-block{style: 'overflow: hidden'}
       %dl.row
         %dt.col-sm-3 Code:
         %dd.col-sm-9= @issue.code
