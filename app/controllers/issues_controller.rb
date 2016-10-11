@@ -4,7 +4,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all.order(code: :asc).preload(:dailies)
+    @issues = Issue.order(code: :asc)
     @today_budget = 0
     if(user_signed_in?)
       @yearly_deposit_with_start = current_user.user_setting.yearly_deposit

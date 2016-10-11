@@ -23,6 +23,16 @@
   #chart_div
   %script{src: 'user_issues/chart.js'}
 
+  .col-lg-3.col-sm-6
+    %h5 現在のポートフォリオ
+    = pie_chart UserIssueService.portfolio(current_user), library: {legend: {display: false}}
+  .col-lg-3.col-sm-6
+    #h5 目標ポートフォリオ
+    = pie_chart UserSettingService.portfolio(current_user), library: {legend: {display: false}}
+  .col-lg-6.col-sm-12
+    %h5 distance
+    = column_chart UserIssueService.distance_portfolio(current_user, @user_stacked), library: {legend: {display: false}}
+
 %table.table.table-bordered.table-striped
   %thead
     %tr
@@ -36,8 +46,8 @@
         %th 購入口数
   %tbody
     - @issues.each do |issue|
-      - base_price = issue.dailies[-1].try(:base_price)
-      - end_price = issue.dailies[-1].try(:end_price)
+      - base_price = issue.latest_daily.try(:base_price) # N+1 probrem
+      - end_price = issue.latest_daily.try(:end_price)
       - base_price_unit = base_price.try :/, issue.base_unit
       - separation = (base_price && end_price && base_price_unit) ? ("%.2f" % ((end_price - base_price_unit) / base_price_unit * 100)) : ""
       - buy_number = (@today_budget && !end_price.nil? && end_price != 0) ? ((@today_budget / end_price / issue.trade_unit).to_i * issue.trade_unit) : 0
