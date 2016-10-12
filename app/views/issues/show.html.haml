@@ -13,7 +13,8 @@
         %dt.col-sm-3 売買単位
         %dd.col-sm-9= @issue.trade_unit
 
-  = line_chart(@chart)
+  .w-100
+    = line_chart(@chart, library: {pointsVisible: false, chartArea: {width: '90%'}})
 
   %table.table
     %thead
