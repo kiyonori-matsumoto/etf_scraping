@@ -61,7 +61,7 @@ namespace :scrape do
     end
   end
 
-  task update: [:blackrock, :nikko, :daiwa]
+  task update: [:blackrock, :nikko, :daiwa, :investment]
 
   task investment: [:environment] do
     Investment.find_each do |iv|

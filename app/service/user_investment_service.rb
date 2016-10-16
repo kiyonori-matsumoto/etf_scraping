@@ -4,7 +4,7 @@ class UserInvestmentService
 
     def user_investments_total_having(user)
       h = {}
-      user.user_investments.group(:investment_code).preload(:investment).each do |ui|
+      user.user_investments.group(:investment_code).preload(:investment).select([:id, :investment_code]).each do |ui|
         i = ui.investment
         code = i.code
         myui = user.user_investments.where(investment_code: code)
