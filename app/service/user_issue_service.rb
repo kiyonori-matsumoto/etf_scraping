@@ -19,7 +19,7 @@ class UserIssueService
 
     def user_issues_total_having(user)
       h = {}
-      user.user_issue.group(:issue_code).preload(:issue).select([:id, :issue_code]).each do |ui|
+      user.user_issue.select(:issue_code).uniq.each do |ui|
         i = ui.issue
         code = i.code
         myui = user.user_issue.where(issue_code: code)
