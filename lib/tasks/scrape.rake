@@ -63,6 +63,22 @@ namespace :scrape do
 
   task update: [:blackrock, :nikko, :daiwa]
 
+  task investment: [:environment] do
+    Investment.find_each do |iv|
+      daily = iv.investment_dailies.new
+
+      if iv.name.nil? || iv.name.empty?
+        iv.name = doc.css('.txt_3d75cf label')[0].text.strip
+        iv.save
+      end
+
+      doc = Nokogiri::HTML.parse(open("http://tskl.toushin.or.jp/FdsWeb/view/FDST030000.seam?isinCd=#{iv.code}"))
+      daily.base_price = doc.css('.pdr10 label')[0].text.gsub(/[^\d\.]/, "").to_i
+      daily.total_assets = doc.css('.pdr10 label')[1].text.gsub(/[^\d\.]/, "").to_f * 100_000_000
+      daily.save
+    end
+  end
+
   def tosho_info(code, daily)
     retries = 0
     r = {}

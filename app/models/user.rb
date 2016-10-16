@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_one :user_setting, dependent: :destroy
   has_many :user_issue, dependent: :destroy
+  has_many :user_investments, dependent: :destroy
 
   after_create :create_new_setting
 

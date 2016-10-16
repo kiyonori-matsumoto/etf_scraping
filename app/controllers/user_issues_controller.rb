@@ -4,22 +4,8 @@ class UserIssuesController < ApplicationController
   protect_from_forgery except: :chart
 
   def index
-    # @user_issues = current_user.user_issue.joins(:issue).select(%w(user_issues.* issues.*))
-    # @user_issues = current_user.user_issue.group(:issue_code).select('issue_code, max(bought_day) as maximum_bought_day, sum(num) as total')
-    @user_issues = current_user.user_issue.group(:issue_code).maximum(:bought_day)
-
-    @user_issues_total = current_user.user_issue.group(:issue_code).sum(:num)
-
-    # @issues = Issue.group(:code)
-
-    @average_price = current_user.user_issue
-      .inject(Hash.new(0)){ |a, e| a[e[:issue_code]] += e[:price] * e[:num]; a }
-
-    @average_price = Hash[@average_price.map { |e| e[1] /= @user_issues_total[e[0]]; e }]
-
-    subquery = Daily.group(:issue_code).maximum(:created_at)
-    @prices = Daily.where(created_at: subquery.values).group(:issue_code).sum(:end_price)
-    @prices.default = 0
+    @user_issues = UserIssueService.user_issues_total_having(current_user)
+    @user_investments = UserInvestmentService.user_investments_total_having(current_user)
   end
 
   def chart
@@ -27,7 +13,8 @@ class UserIssuesController < ApplicationController
       .where(bought_day: [Date.today.beginning_of_year..Date.today])
       .order(bought_day: :asc)
       .inject(Hash.new(0)) {|a, e| a[e[:bought_day].to_date] += e[:price] * e[:num]; a}
-    @chart = @chart.inject([]){ |a, e| a << e; a }
+    # @chart = @chart.inject([]){ |a, e| a << e; a }
+    @chart = (Date.today.beginning_of_year..Date.today).map { |e| [e, @chart[e]] }
 
     respond_to do |format|
       format.js

@@ -1,5 +1,6 @@
 %h1 所有一覧
 
+%h2 ETF
 %table.table
   %thead
     %tr
@@ -11,18 +12,34 @@
       %th 現在価格
       %th 評価損益
   %tbody
-    - @user_issues.each do |code, last_bought_day|
+    - @user_issues.each do |code, ui|
       %tr
-        %td= Issue.find_by(code: code).name
-        %td= last_bought_day
-        %td= number_to_currency @average_price[code]
-        %td= @user_issues_total[code]
-        %td= number_to_currency @average_price[code] * @user_issues_total[code]
-        %td= number_to_currency @prices[code]
-        %td= number_to_currency (@prices[code] - @average_price[code]) * @user_issues_total[code]
+        %td= ui[:name]
+        %td= ui[:last_bought_day]
+        %td= number_to_currency ui[:average_price]
+        %td= ui[:num]
+        %td= number_to_currency ui[:total_paid]
+        %td= number_to_currency ui[:current_price]
+        %td= number_to_currency ui[:current_profit]
 
-      -# %tr
-      -#   %td= issue[:name]
-      -#   %td= issue.bought_day.to_date
-      -#   %td= issue.price
-      -#   %td= issue.num
+%h2 投資信託
+%table.table
+  %thead
+    %tr
+      %th 名前
+      %th 最終購入日
+      %th 平均購入価格
+      %th 購入口数
+      %th 購入総額
+      %th 現在価格
+      %th 評価損益
+  %tbody
+    - @user_investments.each do |code, ui|
+      %tr
+        %td= ui[:name]
+        %td= ui[:last_bought_day]
+        %td= number_to_currency ui[:average_price]
+        %td= ui[:num]
+        %td= number_to_currency ui[:total_paid]
+        %td= number_to_currency ui[:current_price]
+        %td= number_to_currency ui[:current_profit]

@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages': ['bar']})
+google.charts.load('current', {'packages': ['corechart']})
 
 drawChart = ->
   data = new google.visualization.DataTable()
@@ -7,10 +7,11 @@ drawChart = ->
   data.addRows(convert(<%= raw @chart.to_json %>))
 
   options = {
-    width: '100%', height: 300, vAxis: {format: 'currency'},
-    legend: {position: 'none'}
+    # width: '100%', height: 300, vAxis: {format: 'currency'},
+    legend: {position: 'none'},
+    theme: 'maximized'
   }
-  chart = new google.charts.Bar(document.getElementById('chart_div'))
+  chart = new google.visualization.ColumnChart(document.getElementById('chart_div'))
   chart.draw(data, options)
 
 convert = (l) ->
