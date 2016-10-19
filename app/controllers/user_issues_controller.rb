@@ -13,6 +13,10 @@ class UserIssuesController < ApplicationController
       .where(bought_day: [Date.today.beginning_of_year..Date.today])
       .order(bought_day: :asc)
       .inject(Hash.new(0)) {|a, e| a[e[:bought_day].to_date] += e[:price] * e[:num]; a}
+    @chart += current_user.user_investments
+      .where(bought_day: [Date.today.beginning_of_year..Date.today])
+      .order(bought_day: :asc)
+      .inject(Hash.new(0)) {|a, e| a[e[:bought_day].to_date] += e[:price]; a}
     # @chart = @chart.inject([]){ |a, e| a << e; a }
     @chart = (Date.today.beginning_of_year..Date.today).map { |e| [e, @chart[e]] }
 

@@ -25,3 +25,13 @@ module BlackrockScraping
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+class Hash
+  def +(other)
+    if other.is_a? Hash
+      self.merge!(other) {|k, o, n| o + n }
+    else
+      raise ArgumentError
+    end
+  end
+end

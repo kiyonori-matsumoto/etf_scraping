@@ -12,7 +12,7 @@ class UserIssueService
     end
 
     def distance_portfolio(user, total_assets)
-      portfolio_current = portfolio(user)
+      portfolio_current = portfolio(user) + UserInvestmentService.portfolio(user)
       portfolio_future  = UserSettingService.portfolio(user)
       portfolio = portfolio_current.map { |e| e[1] -= (portfolio_future[e[0]] * total_assets) / 100; e }
     end

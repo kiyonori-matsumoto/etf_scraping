@@ -29,7 +29,7 @@
 
   .col-lg-3.col-xs-6
     %h5 現在ポートフォリオ
-    = pie_chart UserIssueService.portfolio(current_user).merge(UserInvestmentService.portfolio(current_user)){|k,s,o| s + o}, chart_opt
+    = pie_chart UserIssueService.portfolio(current_user) + UserInvestmentService.portfolio(current_user), chart_opt
   .col-lg-3.col-xs-6
     %h5 目標ポートフォリオ
     = pie_chart UserSettingService.portfolio(current_user), chart_opt
