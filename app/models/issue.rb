@@ -5,7 +5,7 @@ class Issue < ActiveRecord::Base
   TYPES = [:japan_issue,
            :japan_reit, :japan_bond, :developed_issue, :developed_reit,
            :developed_bond, :emerging_issue, :emerging_reit, :emerging_bond,
-           :commodity].freeze
+           :commodity, :unknown].freeze
 
   self.primary_key = :code
 

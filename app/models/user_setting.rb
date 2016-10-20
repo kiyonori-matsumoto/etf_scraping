@@ -44,6 +44,10 @@ class UserSetting < ActiveRecord::Base
 
   validate :portfolio_total_is_100percent
 
+  def unknown
+    0
+  end
+
   private
 
   def portfolio_total_is_100percent

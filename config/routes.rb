@@ -15,6 +15,15 @@ Rails.application.routes.draw do
       get 'chart'
     end
   end
+
+  resources :user_investments, only: [:new, :create]
+
+  resources :investments, only: [:destroy] do
+    member do
+      get 'fetch'
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

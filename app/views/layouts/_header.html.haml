@@ -1,15 +1,21 @@
-%nav.navbar.navbar-fixed-top.navbar-dark{style: 'background-color: #330000;'}
-  -# %a.navbar-brand{href: '#'} Nisaで積立ETF
-  =link_to "Nisaで積立ETF", root_path, class: 'navbar-brand'
-  %ul.nav.navbar-nav
-    %li.nav-item
-      =link_to "ETF価格一覧", issues_path, class: 'nav-link'
-  .pull-xs-right
-    .dropdown
-      %button.btn.btn-secondary.dropdown-toggle#dropdownAccount{type: 'button', 'data-toggle' => 'dropdown', aria: {haspopup: true, expanded: false}}
-        %span.hidden-md-down My Account
-      .dropdown-menu.dropdown-menu-right{'aria-libelledby' => 'dropdownAccount'}
-        =link_to 'マイページ', user_issues_path, class: 'dropdown-item'
-        =link_to "設定", user_setting_path, class: 'dropdown-item'
-        =link_to "ログイン", new_user_session_path, class: 'dropdown-item'
-        =link_to "ログアウト", destroy_user_session_path, method: :delete,  class: 'dropdown-item'
+%nav.navbar.navbar-fixed-top.navbar-lightl.bg-faded
+  .container
+    -# %a.navbar-brand{href: '#'} Nisaで積立ETF
+    =link_to "Nisaで積立ETF", root_path, class: 'navbar-brand'
+    .pull-xs-right
+      .dropdown
+        %button.btn.btn-secondary.dropdown-toggle#dropdownAccount{type: 'button', 'data-toggle' => 'dropdown', aria: {haspopup: true, expanded: false}}
+          %span.hidden-md-down My Account
+        .dropdown-menu.dropdown-menu-right{'aria-libelledby' => 'dropdownAccount'}
+          =link_to 'マイページ', user_issues_path, class: 'dropdown-item'
+          =link_to "設定", user_setting_path, class: 'dropdown-item'
+          =link_to "ログイン", new_user_session_path, class: 'dropdown-item'
+          =link_to "ログアウト", destroy_user_session_path, method: :delete,  class: 'dropdown-item'
+  .container
+    %ul.nav.navbar-nav
+      %li.nav-item.active
+        =link_to "ETF価格一覧", issues_path, class: 'nav-link'
+      %li.nav-item
+        =link_to 'ETFを買う', new_user_issue_path, class: 'nav-link'
+      %li.nav-item
+        =link_to '投資信託を買う', new_user_investment_path, class: 'nav-link'

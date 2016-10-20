@@ -6,6 +6,7 @@ class UserInvestmentService
       portfolio = Issue::TYPES.inject({}){|a, e| a[I18n.t "attributes.#{e}"] = 0; a}
       user.user_investments.each do |uiss|
         iss = uiss.investment
+        iss.portfolio_type = 'unknown' if iss.portfolio_type.nil?
         portfolio[I18n.t "attributes.#{iss.portfolio_type}"] += (iss.latest_daily.base_price * uiss.num / 10000)
       end
       portfolio
