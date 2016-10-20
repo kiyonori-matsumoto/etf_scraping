@@ -18,7 +18,8 @@ class UserIssuesController < ApplicationController
       .order(bought_day: :asc)
       .inject(Hash.new(0)) {|a, e| a[e[:bought_day].to_date] += e[:price]; a}
     # @chart = @chart.inject([]){ |a, e| a << e; a }
-    @chart = (Date.today.beginning_of_year..Date.today).map { |e| [e, @chart[e]] }
+    totals = 0
+    @chart = (Date.today.beginning_of_year..Date.today).map { |e| totals += @chart[e]; [e, @chart[e], totals] }
 
     respond_to do |format|
       format.js
