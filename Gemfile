@@ -6,6 +6,7 @@ gem 'chartkick'
 gem 'dateslices'
 gem 'rails_admin'
 gem 'cancan'
+gem 'bootstrap', '~> 4.0.0alpha5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'

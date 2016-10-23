@@ -1,23 +1,26 @@
-%h1 投資信託購入
+%h1 投資信託登録
 
 = form_for @user_investment do |f|
   .form-group.row
-    = f.label :investment_code, 'コード', class: 'col-xs-2', for: 'user_investment_investment_code'
-    .col-xs-10.input-group
+    = f.label :investment_code, 'コード', class: 'col-lg-2', for: 'user_investment_investment_code'
+    .col-lg-10
       = f.text_field :investment_code, class: 'form-control'
-      #investment_info.input-group-addon
+    .col-lg-12
+      %p#investment_info.form-text.text-muted
 
   .form-group.row
-    = f.label :price, '取引価格', class: 'col-xs-2', for: 'user_investment_price'
-    .col-xs-10.input-group
-      .input-group-addon ￥
-      = f.number_field :price, class: 'form-control'
+    = f.label :price, '取引価格', class: 'col-lg-2', for: 'user_investment_price'
+    .col-lg-10
+      .input-group
+        .input-group-addon ￥
+        = f.number_field :price, class: 'form-control'
 
   .form-group.row
-    = f.label :price, '口数', class: 'col-xs-2', for: 'user_investment_num'
-    .col-xs-10.input-group
-      = f.number_field :num, class: 'form-control'
-      #investment_base_price.input-group-addon
+    = f.label :price, '口数', class: 'col-lg-2', for: 'user_investment_num'
+    .col-lg-10
+      .input-group
+        = f.number_field :num, class: 'form-control'
+        #investment_base_price.input-group-addon
 
   .form-group
     = f.submit '決定', class: 'btn btn-primary btn-lg'

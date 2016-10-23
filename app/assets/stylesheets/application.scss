@@ -13,9 +13,14 @@
  *= require_tree .
  *= require_self
  */
- @import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+ @import 'bootstrap';
+ @import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
+body {
+     font-family: 'Noto Sans JP', sans-serif;
+     font-size: 100%;
+}
 
- body {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 100%;
- }
+
+.title {
+  float: none;
+}
