@@ -40,8 +40,8 @@
 %table.table.table-bordered.table-striped
   %thead
     %tr
-      %th 商品名
       %th.hidden-md-down Code
+      %th 商品名
       %th 基準価額
       %th 株価
       %th 乖離率(%)
@@ -57,10 +57,10 @@
       - buy_number = (@today_budget && !end_price.nil? && end_price != 0) ? ((@today_budget / end_price / issue.trade_unit).to_i * issue.trade_unit) : 0
       - buy_number = 0 if buy_number < 0
       %tr
-        %td{data: {label: '商品名'}}
-          = link_to issue.name, issue
         %td.hidden-md-down{data: {label: 'code'}}
           = issue.code
+        %td{data: {label: '商品名'}}
+          = link_to issue.name, issue
         %td{data: {label: '基準価額'}}
           = base_price
         %td{data: {label: '株価'}}

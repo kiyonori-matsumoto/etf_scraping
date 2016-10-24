@@ -61,6 +61,20 @@ namespace :scrape do
     end
   end
 
+  task mufg: [:environment] do
+    Issue.where(company: 'mufg').each do |iss|
+      daily = iss.dailies.new
+      tosho_info(iss.code, daily)
+
+      url = iss.url
+      html = open(url, &:read)
+      doc = Nokogiri::HTML.parse(html)
+      daily.base_price = conv(doc.xpath('//th[.="基準価額"]')[0].next_element.text)
+      daily.total_assets = conv(doc.xpath('//th[.="純資産総額"]')[0].next_element.text) * 100_000_000
+      daily.save
+    end
+  end
+
   task update: [:blackrock, :nikko, :daiwa, :investment]
 
   task investment: [:environment] do
