@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'static_page/home'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root 'issues#index'
   devise_for :users

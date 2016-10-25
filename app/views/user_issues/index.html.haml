@@ -1,4 +1,4 @@
-%h1 所有一覧
+%h1 マイページ
 
 %h2 ETF
 %table.table
@@ -14,7 +14,7 @@
   %tbody
     - @user_issues.each do |code, ui|
       %tr
-        %td= ui[:name]
+        %td= link_to ui[:name], issue_path(code)
         %td= ui[:last_bought_day]
         %td= number_to_currency ui[:average_price]
         %td= ui[:num]

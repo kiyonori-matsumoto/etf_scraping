@@ -71,4 +71,4 @@
           %td{data: {label: '所有口数'}}
             = @user_stocks[issue.code]
           %td{data: {label: '購入口数'}}
-            = link_to_if buy_number > 0, buy_number, new_user_issue_path(code: issue.code, price: end_price, num: buy_number)
+            = link_to buy_number, new_user_issue_path(code: issue.code, price: end_price, num: buy_number)

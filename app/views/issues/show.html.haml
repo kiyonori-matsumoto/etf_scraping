@@ -2,7 +2,9 @@
 %p#notice= notice
 
 .container_dummy
-  %h1= @issue.name
+  .clearfix
+    %h1.float-lg-left= @issue.name
+    .float-lg-right= link_to 'このETFを買う', new_user_issue_path(code: @issue.code, price: @issue.latest_daily.end_price), class: 'btn btn-primary'
   .card
     .card-block{style: 'overflow: hidden'}
       %dl.row
@@ -12,10 +14,13 @@
         %dd.col-sm-9= link_to @issue.url, @issue.url
         %dt.col-sm-3 売買単位
         %dd.col-sm-9= @issue.trade_unit
+        %dt.col-sm-3
 
+  %h3 価格推移
   .w-100
     = line_chart(@chart, library: {pointsVisible: false, chartArea: {width: '90%'}})
 
+  %h3 過去の基準価額
   %table.table
     %thead
       %tr
@@ -34,4 +39,4 @@
           %td=d.total_issued ? number_to_human(d.total_issued || 0, unit) : "-"
 
 
-  = link_to 'Back', issues_path
+  = link_to 'ETF一覧に戻る', issues_path
