@@ -1,2 +1,15 @@
 .jumbotron.jumbotron-fluid{style: 'background-color: #ccccff;'}
-  %h1 test
+  .container
+    .col-lg-7
+      %h1 NISAで積立　はじめませんか？
+      %p 目標ポートフォリオを設定して、リバランスしながら投資可能です！
+    .col-lg-3.offset-lg-1
+      = form_for(:user, url: user_registration_path, method: :post) do |f|
+        .form-group
+          = f.email_field :email, class: 'form-control', placeholder: 'Email'
+        .form-group
+          = f.password_field :password, class: 'form-control', placeholder: 'Password'
+        .form-group
+          = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password Confirmation'
+        .form-group
+          = f.submit '新規登録', class: 'btn btn-primary btn-block'

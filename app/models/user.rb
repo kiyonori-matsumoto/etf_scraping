@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   private
 
   def create_new_setting
-    create_user_setting(yearly_deposit: 0, start_date: Time.now)
+    puts "***createing user setting****"
+    us = build_user_setting(yearly_deposit: 0, start_date: Time.now, japan_issue: 0, commodity: 100)
+    us.save
   end
 end

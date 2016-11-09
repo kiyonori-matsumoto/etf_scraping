@@ -14,6 +14,7 @@
 //= require bootstrap
 //= require jquery_ujs
 //= require turbolinks
+//= require select2
 // require Chart.bundle
 //= require chartkick
 //= require_tree .

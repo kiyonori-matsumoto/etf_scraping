@@ -4,7 +4,8 @@
   .form-group.row
     = f.label :issue_code, 'コード', class: 'col-lg-2', for: 'user_issue_issue_code'
     .col-lg-10
-      = f.text_field :issue_code, class: 'form-control'
+      -# = f.collection_select :issue_code, @issues, :code, :name, {include_blank: true}, {class: 'form-control select2'}
+      =f.select :issue_code, @issues, {}, class: 'form-control select2'
 
   .form-group.row
     = f.label :price, '取引価格', class: 'col-lg-2', for: 'user_issue_price'
@@ -20,3 +21,8 @@
 
   .form-group
     = f.submit '決定', class: 'btn btn-primary btn-lg'
+
+:coffeescript
+  $('.select2').select2(
+    theme: "bootstrap"
+  )

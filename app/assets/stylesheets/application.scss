@@ -13,9 +13,15 @@
  *= require_tree .
  *= require_self
  *= require devise_bootstrap_views
+ *= require select2
+ *= require select2-bootstrap
  */
- @import 'bootstrap';
- @import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
+// $enable-flex: true;
+
+@import 'bootstrap';
+@import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
 body {
      font-family: 'Noto Sans JP', sans-serif;
      font-size: 100%;

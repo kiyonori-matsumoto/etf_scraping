@@ -28,6 +28,7 @@ class UserIssuesController < ApplicationController
 
   def new
     @user_issue = UserIssue.new issue_code: params[:code], price: params[:price], num: params[:num]
+    @issues = Issue.all.order(code: :asc).pluck(:name, :code).map { |e| ["#{e[0]}[#{e[1]}]", e[1]] }
   end
 
   def create
