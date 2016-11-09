@@ -6,6 +6,9 @@ class UserIssuesController < ApplicationController
   def index
     @user_issues = UserIssueService.user_issues_total_having(current_user)
     @user_investments = UserInvestmentService.user_investments_total_having(current_user)
+    @v = {}
+    @v[:total] = @user_issues.inject(0) { |a, e| a + e[1][:current_profit] } +
+                 @user_investments.inject(0){ |a, e| a + e[1][:current_profit] }
   end
 
   def chart

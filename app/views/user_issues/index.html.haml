@@ -1,5 +1,11 @@
 %h1 マイページ
-
+.alert.alert-dismissible.fade.in{role: 'alert', class: @v[:total] > 0 ? 'alert-success' : 'alert-danger'}
+  %button.close{type: 'button', 'data-dismiss' => 'alert', 'aria-label' => 'Close'}
+    %span{'aria-hidden' => 'true'} &times;
+  %h4.alert-heading 統計
+  %dl.row.m-b-0
+    %dt.col-sm-3 損益合計:
+    %dd.col-sm-9= number_to_currency @v[:total]
 %h2 ETF
 %table.table
   %thead
