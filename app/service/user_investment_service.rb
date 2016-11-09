@@ -21,7 +21,7 @@ class UserInvestmentService
 
         h[code] ||= Hash.new(0)
         h[code][:name] = i.name
-        h[code][:last_bought_day] = myui.maximum(:bought_day)
+        h[code][:last_bought_day] = myui.maximum(:bought_day).to_date
         h[code][:num] = myui.sum(:num)
         h[code][:total_paid] = myui.sum(:price)
         h[code][:average_price] = h[code][:total_paid] / h[code][:num] * 10000
