@@ -4,7 +4,7 @@
 .container_dummy
   .clearfix
     %h1.float-lg-left= @issue.name
-    .float-lg-right= link_to 'このETFを買う', new_user_issue_path(code: @issue.code, price: @issue.latest_daily.end_price), class: 'btn btn-primary'
+    .float-lg-right= link_to 'このETFを買う', new_user_issue_path(code: @issue.code, price: @issue.latest_daily&.end_price), class: 'btn btn-primary'
   .card
     .card-block{style: 'overflow: hidden'}
       %dl.row
