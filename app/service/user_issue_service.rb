@@ -12,9 +12,10 @@ class UserIssueService
     end
 
     def distance_portfolio(user, total_assets)
+      t = total(user) + UserInvestmentService.total(user)
       portfolio_current = portfolio(user) + UserInvestmentService.portfolio(user)
       portfolio_future  = UserSettingService.portfolio(user)
-      portfolio = portfolio_current.map { |e| e[1] -= (portfolio_future[e[0]] * total_assets) / 100; e }
+      portfolio = portfolio_current.map { |e| e[1] -= (portfolio_future[e[0]] * t) / 100; e }
     end
 
     def user_issues_total_having(user)
@@ -34,6 +35,10 @@ class UserIssueService
         h[code][:current_profit] = h[code][:current_price] - h[code][:total_paid]
       end
       h
+    end
+
+    def total(user)
+      user_issues_total_having(user).inject(0) { |a,e| a + e[1][:current_price] }
     end
   end
 end

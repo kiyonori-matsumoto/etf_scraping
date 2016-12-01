@@ -30,5 +30,9 @@ class UserInvestmentService
       end
       h
     end
+
+    def total(user)
+      user_investments_total_having(user).inject(0) { |a,e| a + e[1][:current_price] }
+    end
   end
 end
