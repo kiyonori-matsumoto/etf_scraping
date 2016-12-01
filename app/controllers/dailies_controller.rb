@@ -1,5 +1,14 @@
 class DailiesController < ApplicationController
 
+  def index
+    @issue = Issue.find(params[:issue_id])
+    @dailies = Daily.where(issue_code: params[:issue_id]).order(created_at: :desc)
+    respond_to do |format|
+      format.html { render :index }
+      format.csv  { render :index }
+    end
+  end
+
   def destroy
     daily = Daily.find(params[:id])
     daily.destroy

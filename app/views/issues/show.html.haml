@@ -38,5 +38,6 @@
           %td="\u00A5" + number_to_human(d.total_assets || 0, unit)
           %td=d.total_issued ? number_to_human(d.total_issued || 0, unit) : "-"
 
-
+  = link_to 'もっと見る', issue_dailies_path(@issue)
+  |
   = link_to 'ETF一覧に戻る', issues_path

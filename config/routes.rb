@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :issues, only: [:index, :show] do
-    resources :dailies, only: [:destroy]
+    resources :dailies, only: [:index, :destroy]
   end
 
   resource :user_setting, only: [:show, :update]
