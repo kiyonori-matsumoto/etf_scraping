@@ -3,6 +3,7 @@
 
 -# -chart_opt = {library: {legend: {position: 'none'}, chartArea: {left: '10%', top: 0, width: '80%', height: '80%'}}}
 - chart_opt = {library: {legend: {position: :none}, chartArea: {width: '100%', height: '75%', top: 0}, hAxis: {textPosition: :out}, vAxis: {textPosition: :in}}}
+- distance = UserIssueService.distance_portfolio(current_user, @user_stacked) if user_signed_in?
 
 - if user_signed_in?
   .alert.alert-info.alert-dismissible.fade.in{role: 'alert'}
@@ -35,7 +36,7 @@
     = pie_chart UserSettingService.portfolio(current_user), chart_opt
   .col-lg-6.col-xs-12
     %h5 distance
-    = column_chart UserIssueService.distance_portfolio(current_user, @user_stacked), chart_opt
+    = column_chart distance, chart_opt
 
 %table.table.table-bordered.table-striped
   %thead
@@ -60,6 +61,7 @@
         %td.hidden-md-down{data: {label: 'code'}}
           = issue.code
         %td{data: {label: '商品名'}}
+          = "★" if user_signed_in? && Hash[distance][I18n.t "attributes." + issue.portfolio_type] < 0
           = link_to issue.name, issue
         %td{data: {label: '基準価額'}}
           = base_price
