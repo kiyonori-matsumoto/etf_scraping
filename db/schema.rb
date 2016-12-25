@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20161015144756) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "dailies", force: :cascade do |t|
     t.decimal  "base_price"
     t.decimal  "end_price"
@@ -57,7 +60,7 @@ ActiveRecord::Schema.define(version: 20161015144756) do
     t.string   "portfolio_type"
   end
 
-  add_index "issues", ["code"], name: "index_issues_on_code", unique: true
+  add_index "issues", ["code"], name: "index_issues_on_code", unique: true, using: :btree
 
   create_table "user_investments", force: :cascade do |t|
     t.integer  "user_id"
@@ -79,7 +82,7 @@ ActiveRecord::Schema.define(version: 20161015144756) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "user_issues", ["issue_code"], name: "index_user_issues_on_issue_code"
+  add_index "user_issues", ["issue_code"], name: "index_user_issues_on_issue_code", using: :btree
 
   create_table "user_settings", force: :cascade do |t|
     t.integer  "user_id"
@@ -115,7 +118,7 @@ ActiveRecord::Schema.define(version: 20161015144756) do
     t.boolean  "admin"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
