@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resource :user_setting, only: [:show, :update]
 
+  resource :user_home, only: [:show]
+
   resources :user_issues, only: [:index, :new, :create] do
     collection do
       get 'chart'

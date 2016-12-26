@@ -1,11 +1,21 @@
 %h1 マイページ
-.alert.alert-dismissible.fade.in{role: 'alert', class: @v[:total] > 0 ? 'alert-success' : 'alert-danger'}
+.alert.alert-dismissible.fade.in{role: 'alert', class: @v[:current_profit] > 0 ? 'alert-success' : 'alert-danger'}
   %button.close{type: 'button', 'data-dismiss' => 'alert', 'aria-label' => 'Close'}
     %span{'aria-hidden' => 'true'} &times;
   %h4.alert-heading 統計
   %dl.row.m-b-0
+    %dt.col-sm-3 年間投資額:
+    %dd.col-sm-9= number_to_currency @v[:year_deposit]
+    %dt.col-sm-3 累計投資額:
+    %dd.col-sm-9= number_to_currency @v[:total_paid]
+    %dt.col-sm-3 現在価額:
+    %dd.col-sm-9= number_to_currency @v[:current_price]
     %dt.col-sm-3 損益合計:
-    %dd.col-sm-9= number_to_currency @v[:total]
+    %dd.col-sm-9
+      = number_to_currency @v[:current_profit]
+      (
+      ="%0.1f" % (@v[:current_profit_rate] * 100)
+      \%)
 %h2 ETF
 %table.table
   %thead
