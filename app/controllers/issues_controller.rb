@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
         if current_user.user_setting.start_date.year == Date.today.year
           @yearly_deposit_with_start *= (1 - current_user.user_setting.start_date.yday / Date.today.end_of_year.yday.to_f )
         end
-      @chart = current_user.user_issue
+      @chart = current_user.user_issues
         .where(bought_day: [Date.today.beginning_of_year..Date.today])
         .order(bought_day: :asc)
         .inject(Hash.new(0)) {|a, e| a[e[:bought_day].to_date] += e[:price] * e[:num]; a}
@@ -24,7 +24,7 @@ class IssuesController < ApplicationController
 
       @today_budget = @user_should_stacked - @user_stacked
 
-      @user_stocks = current_user.user_issue.group(:issue_code).sum(:num)
+      @user_stocks = current_user.user_issues.group(:issue_code).sum(:num)
     end
   end
 

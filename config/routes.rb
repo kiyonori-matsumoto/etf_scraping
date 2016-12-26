@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_investments, only: [:new, :create]
+  resources :user_investments, only: [:index, :new, :create]
 
   resources :investments, only: [:destroy] do
     member do

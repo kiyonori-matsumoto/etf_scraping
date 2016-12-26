@@ -16,7 +16,9 @@
       (
       ="%0.1f" % (@v[:current_profit_rate] * 100)
       \%)
-%h2 ETF
+.clearfix
+  %h2.float-xs-left ETF
+  =link_to "詳細を見る", user_issues_path, class: %w(btn btn-link float-xs-right)
 %table.table
   %thead
     %tr
@@ -38,7 +40,10 @@
         %td= number_to_currency ui[:current_price]
         %td= number_to_currency ui[:current_profit]
 
-%h2 投資信託
+
+.clearfix
+  %h2.float-xs-left 投資信託
+  =link_to "詳細を見る", user_investments_path, class: %w(btn btn-link float-xs-right)
 %table.table
   %thead
     %tr

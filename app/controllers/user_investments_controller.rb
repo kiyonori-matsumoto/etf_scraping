@@ -2,6 +2,10 @@ class UserInvestmentsController < ApplicationController
 
   before_action :authenticate_user!
 
+  def index
+    @user_investments = current_user.user_investments
+  end
+
   def new
     @user_investment = UserInvestment.new investment_code: params[:code], price: params[:price], num: params[:num]
   end

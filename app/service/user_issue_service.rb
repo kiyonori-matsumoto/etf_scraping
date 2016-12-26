@@ -4,7 +4,7 @@ class UserIssueService
 
     def portfolio(user)
       portfolio = Issue::TYPES.inject({}){|a, e| a[I18n.t "attributes.#{e}"] = 0; a}
-      user.user_issue.each do |uiss|
+      user.user_issues.each do |uiss|
         iss = uiss.issue
         portfolio[I18n.t "attributes.#{iss.portfolio_type}"] += (iss.latest_daily.end_price * uiss.num)
       end
@@ -20,10 +20,10 @@ class UserIssueService
 
     def user_issues_total_having(user)
       h = {}
-      user.user_issue.select(:issue_code).uniq.each do |ui|
+      user.user_issues.select(:issue_code).uniq.each do |ui|
         i = ui.issue
         code = i.code
-        myui = user.user_issue.where(issue_code: code)
+        myui = user.user_issues.where(issue_code: code)
 
         h[code] ||= Hash.new(0)
         h[code][:name] = i.name
