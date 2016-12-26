@@ -22,6 +22,7 @@
 %table.table
   %thead
     %tr
+      %th
       %th 名前
       %th 最終購入日
       %th 平均購入価格
@@ -32,6 +33,8 @@
   %tbody
     - @user_issues.each do |code, ui|
       %tr
+        -# %td
+        -#   %button.btn.btn-secondary.btn-sm{type: :button, data: {toggle: :collapse, target: "#col_#{code}"}, 'aria-expanded' => false, 'aria-controls' => "col_#{code}"} +
         %td= link_to ui[:name], issue_path(code)
         %td= ui[:last_bought_day]
         %td= number_to_currency ui[:average_price]
@@ -39,8 +42,10 @@
         %td= number_to_currency ui[:total_paid]
         %td= number_to_currency ui[:current_price]
         %td= number_to_currency ui[:current_profit]
-
-
+      -# %tr
+      -#   %td{colspan: 8}
+      -#     .collapse{id: "col_#{code}"}
+      -#       = render partial: "user_issues/index", locals: {issues: @my_issues.where(issue_code: code)}
 .clearfix
   %h2.float-xs-left 投資信託
   =link_to "詳細を見る", user_investments_path, class: %w(btn btn-link float-xs-right)

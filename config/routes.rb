@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resource :user_home, only: [:show]
 
-  resources :user_issues, only: [:index, :new, :create] do
+  resources :user_issues do
     collection do
       get 'chart'
     end

@@ -1,19 +1,2 @@
 %h1 ETF詳細
-%table.table
-  %thead
-    %tr
-      %th 名前
-      %th コード
-      %th 購入日
-      %th 購入価格
-      %th 購入口数
-      %th 購入総額
-  %tbody
-    - @user_issues.each do |ui|
-      %tr
-        %td= link_to ui.issue.name, ui.issue, class: %w(btn btn-link)
-        %td= ui.issue_code
-        %td= ui.bought_day.strftime("%Y/%m/%d")
-        %td= number_to_currency ui.price
-        %td= ui.num
-        %td= number_to_currency ui.price * ui.num
+= render partial: 'index', locals: {issues: @user_issues}

@@ -7,6 +7,10 @@ class UserIssuesController < ApplicationController
     @user_issues = current_user.user_issues
   end
 
+  def edit
+    @user_issue = UserIssue.find_by(id: params[:id])
+  end
+
   def chart
     @chart = current_user.user_issues
       .where(bought_day: [Date.today.beginning_of_year..Date.today])
@@ -42,10 +46,31 @@ class UserIssuesController < ApplicationController
     end
   end
 
+  def update
+    @user_issue = UserIssue.find_by(id: params[:id])
+    if @user_issue.update_attributes(user_issues_params)
+      redirect_to user_issues_path
+    else
+      flash[:danger] = "failed to update"
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @user_issue = UserIssue.find_by(id: params[:id])
+    if @user_issue && @user_issue.destroy
+      flash[:success] = "削除成功"
+      redirect_to user_issues_path
+    else
+      flash[:danger] = "削除失敗"
+      redirect_to user_issues_path
+    end
+  end
+
   private
 
   def user_issues_params
-    params.require(:user_issue).permit(:issue_code, :num, :price)
+    params.require(:user_issue).permit(:issue_code, :num, :price, :bought_day)
   end
 
 end

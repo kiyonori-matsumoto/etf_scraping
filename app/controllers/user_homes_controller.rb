@@ -2,7 +2,9 @@ class UserHomesController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @my_issues = current_user.user_issues
     @user_issues = UserIssueService.user_issues_total_having(current_user)
+    @my_investments = current_user.user_investments
     @user_investments = UserInvestmentService.user_investments_total_having(current_user)
     @v = {}
     [:current_profit, :total_paid, :current_price].each do |d|

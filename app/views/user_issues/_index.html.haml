@@ -1,0 +1,28 @@
+%table.table
+  %thead
+    %tr
+      %th 名前
+      %th コード
+      %th 購入日
+      %th 購入価格
+      %th 購入口数
+      %th 購入総額
+      %th
+  %tbody
+    - issues.order(bought_day: :desc).each do |ui|
+      %tr
+        %td= link_to ui.issue.name, ui.issue, class: %w(btn btn-link)
+        %td= ui.issue_code
+        %td= ui.bought_day.strftime("%Y/%m/%d")
+        %td= number_to_currency ui.price
+        %td= ui.num
+        %td= number_to_currency ui.price * ui.num
+        %td
+          = link_to edit_user_issue_path(ui), data: { toggle: :tooltip, placement: :top}, title: '編集' do
+            %i.material-icons mode_edit
+          = link_to user_issue_path(ui), method: :delete, data: { toggle: :tooltip, placement: :top, confirm: '本当に削除しますか?'}, title: '削除' do
+            %i.material-icons delete_forever
+
+:coffee
+  $ ->
+    $('[data-toggle="tooltip"]').tooltip()
