@@ -9,6 +9,7 @@ class UserIssuesController < ApplicationController
 
   def edit
     @user_issue = UserIssue.find_by(id: params[:id])
+    @issues = Issue.all.order(code: :asc).pluck(:name, :code).map { |e| ["#{e[0]}[#{e[1]}]", e[1]] }
   end
 
   def chart
@@ -31,12 +32,12 @@ class UserIssuesController < ApplicationController
 
   def new
     @user_issue = UserIssue.new issue_code: params[:code], price: params[:price], num: params[:num]
+    @user_issue.bought_day = Date.today
     @issues = Issue.all.order(code: :asc).pluck(:name, :code).map { |e| ["#{e[0]}[#{e[1]}]", e[1]] }
   end
 
   def create
-    user_issue = current_user.user_issues.new(user_issue_params)
-    user_issue.bought_day = Date.today
+    user_issue = current_user.user_issues.new(user_issues_params)
 
     if user_issue.save
       redirect_to user_issues_path

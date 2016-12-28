@@ -11,10 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
+//= require bootstrap
 //= require select2
 // require Chart.bundle
 //= require chartkick
 //= require_tree .
+//= require turbolinks
