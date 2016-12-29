@@ -19,52 +19,64 @@
 .clearfix
   %h2.float-xs-left ETF
   =link_to "詳細を見る", user_issues_path, class: %w(btn btn-link float-xs-right)
-%table.table
-  %thead
-    %tr
-      %th 名前
-      %th 最終購入日
-      %th 平均購入価格
-      %th 購入口数
-      %th 購入総額
-      %th 現在価格
-      %th 評価損益
-  %tbody
-    - @user_issues.each do |code, ui|
-      %tr
-        -# %td
-        -#   %button.btn.btn-secondary.btn-sm{type: :button, data: {toggle: :collapse, target: "#col_#{code}"}, 'aria-expanded' => false, 'aria-controls' => "col_#{code}"} +
-        %td= link_to ui[:name], issue_path(code)
-        %td= ui[:last_bought_day]
-        %td= number_to_currency ui[:average_price]
-        %td= ui[:num]
-        %td= number_to_currency ui[:total_paid]
-        %td= number_to_currency ui[:current_price]
-        %td= number_to_currency ui[:current_profit]
-      -# %tr
-      -#   %td{colspan: 8}
-      -#     .collapse{id: "col_#{code}"}
-      -#       = render partial: "user_issues/index", locals: {issues: @my_issues.where(issue_code: code)}
+.table-row.header
+  .wrapper.text-4
+    .wrapper.text-2
+      .text 名前
+    .wrapper.text-2
+      .text 最終購入日
+      .text 平均購入価格
+  .wrapper.num-4
+    .wrapper.num-2
+      .num 購入口数
+      .num 購入総額
+    .wrapper.num-2
+      .num 現在価格
+      .num 評価損益
+- @user_issues.each do |code, ui|
+  .table-row
+    .wrapper.text-4
+      .wrapper.text-2
+        .text= link_to ui[:name], issue_path(code)
+      .wrapper.text-2
+        .text= ui[:last_bought_day]
+        .text= number_to_currency ui[:average_price]
+    .wrapper.num-4
+      .wrapper.num-2
+        .num= ui[:num]
+        .num= number_to_currency ui[:total_paid]
+      .wrapper.num-2
+        .num= number_to_currency ui[:current_price]
+        .num= number_to_currency ui[:current_profit]
 .clearfix
   %h2.float-xs-left 投資信託
   =link_to "詳細を見る", user_investments_path, class: %w(btn btn-link float-xs-right)
-%table.table
-  %thead
-    %tr
-      %th 名前
-      %th 最終購入日
-      %th 平均購入価格
-      %th 購入口数
-      %th 購入総額
-      %th 現在価格
-      %th 評価損益
-  %tbody
-    - @user_investments.each do |code, ui|
-      %tr
-        %td= ui[:name]
-        %td= ui[:last_bought_day]
-        %td= number_to_currency ui[:average_price]
-        %td= ui[:num]
-        %td= number_to_currency ui[:total_paid]
-        %td= number_to_currency ui[:current_price]
-        %td= number_to_currency ui[:current_profit]
+.table-row.header
+  .wrapper.text-4
+    .wrapper.text-2
+      .text 名前
+    .wrapper.text-2
+      .text 最終購入日
+      .text 平均購入価格
+  .wrapper.num-4
+    .wrapper.num-2
+      .num 購入口数
+      .num 購入総額
+    .wrapper.num-2
+      .num 現在価格
+      .num 評価損益
+- @user_investments.each do |code, ui|
+  .table-row
+    .wrapper.text-4
+      .wrapper.text-2
+        .text= ui[:name]
+      .wrapper.text-2
+        .text= ui[:last_bought_day]
+        .text= number_to_currency ui[:average_price]
+    .wrapper.num-4
+      .wrapper.num-2
+        .num= ui[:num]
+        .num= number_to_currency ui[:total_paid]
+      .wrapper.num-2
+        .num= number_to_currency ui[:current_price]
+        .num= number_to_currency ui[:current_profit]
