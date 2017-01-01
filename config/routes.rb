@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   resource :user_setting, only: [:show, :update]
 
-  resource :user_home, only: [:show]
+  resource :user_home, only: [:show] do
+    member do
+      get 'dashboard'
+    end
+  end
 
   resources :user_issues do
     collection do

@@ -8,6 +8,8 @@ gem 'rails_admin'
 gem 'cancan'
 gem 'bootstrap', '~> 4.0.0alpha5'
 gem 'select2-rails'
+gem 'lazy_high_charts', github: 'kiyonori-matsumoto/lazy_high_charts',
+  branch: 'master'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
@@ -74,3 +76,5 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
