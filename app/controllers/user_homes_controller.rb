@@ -17,8 +17,8 @@ class UserHomesController < ApplicationController
   end
 
   def dashboard
-    data = current_user.user_issues.select([:bought_day, :price])
-          .inject(Hash.new(0)) { |a, e| a[e.bought_day.to_date] = e.price.to_i; a }
+    data = current_user.user_issues.select([:bought_day, :price, :num])
+          .inject(Hash.new(0)) { |a, e| a[e.bought_day.to_date] = (e.price * e.num).to_i; a }
     n = 0
     data2 = (current_user.user_setting.start_date.to_date..Date.today)
     .inject({}) { |a, e| a[e] = (n += data[e]); a }
