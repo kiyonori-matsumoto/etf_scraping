@@ -18,18 +18,29 @@ class UserHomesController < ApplicationController
 
   def dashboard
     data = current_user.user_issues.select([:bought_day, :price, :num])
-          .inject(Hash.new(0)) { |a, e| a[e.bought_day.to_date] = (e.price * e.num).to_i; a }
+          .inject(Hash.new(0)) { |a, e| a[e.bought_day.to_date] += (e.price * e.num).to_i; a }
+    data = current_user.user_investments.select([:bought_day, :price, :num])
+          .inject(data) { |a, e| a[e.bought_day.to_date] += e.price.to_i; a }
+
     n = 0
     data2 = (current_user.user_setting.start_date.to_date..Date.today)
     .inject({}) { |a, e| a[e] = (n += data[e]); a }
-    p data
+
+    n = 0
+    d = current_user.user_setting.yearly_deposit.to_f / (Date.leap?(Date.today.year) ? 366 : 365)
+    data3 = (current_user.user_setting.start_date.to_date..Date.today)
+    .inject({}) { |a, e| a[e] = (n += d) ; a }
+    .map { |e| [e[0].strftime('%Q').to_i, e[1].to_i] }
+
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(text: '今年度投資計画・実績')
       f.xAxis(type: :datetime)
-      f.yAxis([{}, {opposite: true}])
+      f.yAxis([{title: {text: nil}}, {title: {text: nil}, opposite: true}])
+      f.tooltip(shared: true)
       f.series(name: "投資額", yAxis: 0, data: data.map { |e| [e[0].strftime('%Q').to_i, e[1]] })
       f.series(name: "投資累計", yAxis: 1, data: data2.map { |e| [e[0].strftime('%Q').to_i, e[1]] }, type: 'line')
-      f.chart({defaultSeriesType: "column"})
+      f.series(name: "投資目標", yAxis: 1, data: data3, type: 'line')
+      f.chart({defaultSeriesType: "column", zoomType: 'x'})
       f.responsive(
         rules: [{
           condition: { maxWidth: 500 },
