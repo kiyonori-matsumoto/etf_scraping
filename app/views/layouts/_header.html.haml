@@ -16,6 +16,7 @@
             My Account
           .dropdown-menu.dropdown-menu-right{'aria-libelledby' => 'dropdownAccount'}
             =link_to 'マイページ', user_home_path, class: 'dropdown-item'
+            =link_to 'ダッシュボード', dashboard_path, class: 'dropdown-item'
             =link_to "設定", user_setting_path, class: 'dropdown-item'
             =link_to "ログイン", new_user_session_path, class: 'dropdown-item'
             =link_to "ログアウト", destroy_user_session_path, method: :delete,  class: 'dropdown-item'
