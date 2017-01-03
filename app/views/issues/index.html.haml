@@ -23,20 +23,20 @@
       %dd.col-sm-9= number_to_currency @user_should_stacked
       %dt.col-sm-3 本日投資額
       %dd.col-sm-9.m-b-0= number_to_currency @today_budget
-
-  .col-xs-12
-    #chart_div
-    %script{src: 'user_issues/chart.js'}
-
-  .col-lg-3.col-xs-6
-    %h5 現在ポートフォリオ
-    = pie_chart UserIssueService.portfolio(current_user) + UserInvestmentService.portfolio(current_user), chart_opt
-  .col-lg-3.col-xs-6
-    %h5 目標ポートフォリオ
-    = pie_chart UserSettingService.portfolio(current_user), chart_opt
-  .col-lg-6.col-xs-12
-    %h5 distance
-    = column_chart distance, chart_opt
+  -# 
+  -# .col-xs-12
+  -#   #chart_div
+  -#   %script{src: 'user_issues/chart.js'}
+  -#
+  -# .col-lg-3.col-xs-6
+  -#   %h5 現在ポートフォリオ
+  -#   = pie_chart UserIssueService.portfolio(current_user) + UserInvestmentService.portfolio(current_user), chart_opt
+  -# .col-lg-3.col-xs-6
+  -#   %h5 目標ポートフォリオ
+  -#   = pie_chart UserSettingService.portfolio(current_user), chart_opt
+  -# .col-lg-6.col-xs-12
+  -#   %h5 distance
+  -#   = column_chart distance, chart_opt
 
 %table.table.table-bordered.table-striped
   %thead

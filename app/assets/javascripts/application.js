@@ -16,10 +16,9 @@
 //= require bootstrap
 //= require select2
 // require Chart.bundle
-//= require chartkick
 //= require_tree .
 //= require turbolinks
 
-//= require highcharts/highcharts
-//= require highcharts/highcharts-more
 //= require highcharts/highstock
+//= require highcharts/highcharts-more
+//= require chartkick

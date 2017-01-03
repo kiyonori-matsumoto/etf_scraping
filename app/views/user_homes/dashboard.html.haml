@@ -1,6 +1,11 @@
 %h1 ダッシュボード
 = high_chart_globals(@chart_globals)
-.col-xs-12
-  = high_chart("some_id", @chart)
-.col-lg-4
-  = high_chart("some_id2", @chart2)
+.row
+  .col-xs-12
+    = high_stock("some_id", @chart)
+.row
+  .col-lg-4
+    = high_chart("some_id2", @chart2)
+  .col-lg-8
+    - distance = UserIssueService.distance_portfolio(current_user, @user_stacked)
+    = column_chart distance, {title: '差分'}

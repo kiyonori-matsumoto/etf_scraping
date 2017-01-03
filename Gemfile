@@ -8,8 +8,8 @@ gem 'rails_admin'
 gem 'cancan'
 gem 'bootstrap', '~> 4.0.0alpha5'
 gem 'select2-rails'
-gem 'lazy_high_charts', github: 'kiyonori-matsumoto/lazy_high_charts',
-  branch: 'master'
+# gem 'lazy_high_charts', github: 'kiyonori-matsumoto/lazy_high_charts', branch: 'master'
+gem 'lazy_high_charts', path: '/home/kiyonori/git/lazy_high_charts'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'

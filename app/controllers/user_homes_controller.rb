@@ -33,21 +33,21 @@ class UserHomesController < ApplicationController
     .map { |e| [e[0].strftime('%Q').to_i, e[1].to_i] }
 
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
-      f.title(text: '今年度投資計画・実績')
-      f.legend(verticalAlign: 'bottom')
+      f.title(text: '投資計画・実績')
+      f.legend(verticalAlign: 'top')
       f.xAxis(type: :datetime, labels: {y: 16})
-      f.yAxis([{title: {text: nil}, id: 0}, {title: {text: nil}, opposite: true, id: 1}])
-      f.tooltip(shared: true)
-      f.series(name: "投資額", yAxis: 0, data: data.map { |e| [e[0].strftime('%Q').to_i, e[1]] })
+      f.yAxis([{title: {text: nil}, id: "1"}, {title: {text: nil}, id: "2"}])
+      f.tooltip(shared: true, valueDecimals: 0)
       f.series(name: "投資累計", yAxis: 1, data: data2.map { |e| [e[0].strftime('%Q').to_i, e[1]] }, type: 'line')
-      f.series(name: "投資目標", yAxis: 1, data: data3, type: 'line')
+      f.series(name: "投資目標", yAxis: 1, data: data3, type: 'line', dashStyle:'ShortDot')
       f.chart({defaultSeriesType: "column", zoomType: 'x'})
+      f.series(name: "投資額", yAxis: 0, data: data.sort.map { |e| [e[0].strftime('%Q').to_i, e[1]] })
       f.responsive(
         rules: [{
           condition: { maxWidth: 500 },
           chartOptions: {
             legend: { enabled: false, y: 0, x: 0, align: 'center' },
-            yAxis: [{title: {text: nil}, labels: {align: 'left', x: 3, y: -8}, id: 0}, {title: {text: nil}, opposite: true, labels: {align: 'right', x: -3, y: -8}, id: 1}]
+            yAxis: [{title: {text: nil}, id: "1", visible: false}, {title: {text: nil}, id: "2", visible: false}]
           }
         }]
       )
@@ -57,10 +57,11 @@ class UserHomesController < ApplicationController
     p data3
 
     @chart2 = LazyHighCharts::HighChart.new('graph2') do |f|
+      f.chart(height: 350)
       f.title(text: 'ポートフォリオ', aligh: 'center')
       f.plotOptions(pie: {dataLabels: {
         enabled: true, distance: -50, style: { color: 'white'}
-        }, startAngle: -90, endAngle: 90, center: ['50%', '75%']})
+        }, startAngle: -90, endAngle: 90, center: ['50%', '50%']})
       f.series(
         type: 'pie',
         name: '現在価額',
@@ -68,6 +69,10 @@ class UserHomesController < ApplicationController
         data: data3.map { |e| [e[0], e[1].to_i] }
           .delete_if { |e| e[1] <= 0 }
       )
+    end
+
+    @chart3 = LazyHighCharts::HighChart.new('graph3') do |f|
+      f.title(text: '')
     end
 
     @chart_globals = LazyHighCharts::HighChartGlobals.new do |f|
@@ -87,11 +92,5 @@ class UserHomesController < ApplicationController
       f.lang(thousandsSep: ",")
       f.colors(["#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354"])
     end
-  end
-
-  private
-
-  def jdate(date)
-    "Date.UTC(#{date.year},#{date.month-1},#{date.day})"
   end
 end

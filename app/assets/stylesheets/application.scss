@@ -26,7 +26,34 @@ body {
      font-size: 100%;
 }
 
-
 .title {
   float: none;
 }
+
+html {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+// @include media-breakpoint-up(sm) {
+//   body {
+//     font-size: ;
+//   }
+// }
+//
+// @include media-breakpoint-up(md) {
+//   body {
+//     font-size: 80%;
+//   }
+// }
+//
+// @include media-breakpoint-up(lg) {
+//   body {
+//     font-size: 90%;
+//   }
+// }
