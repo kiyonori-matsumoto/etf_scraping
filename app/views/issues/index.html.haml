@@ -23,7 +23,7 @@
       %dd.col-sm-9= number_to_currency @user_should_stacked
       %dt.col-sm-3 本日投資額
       %dd.col-sm-9.m-b-0= number_to_currency @today_budget
-  -# 
+  -#
   -# .col-xs-12
   -#   #chart_div
   -#   %script{src: 'user_issues/chart.js'}
@@ -61,8 +61,9 @@
         %td.hidden-md-down{data: {label: 'code'}}
           = issue.code
         %td{data: {label: '商品名'}}
-          = "★" if user_signed_in? && Hash[distance][I18n.t "attributes." + issue.portfolio_type] < 0
           = link_to issue.name, issue
+          - if user_signed_in? && Hash[distance][I18n.t "attributes." + issue.portfolio_type] < 0
+            %span.tag.tag-info ★
         %td{data: {label: '基準価額'}}
           = base_price
         %td{data: {label: '株価'}}

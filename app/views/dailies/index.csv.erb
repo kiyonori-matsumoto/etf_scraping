@@ -1,4 +1,4 @@
 日付,基準価格,株価,純資産総額,発行済口数
 <% @dailies.each do |d| %>
-<%= d.created_at.localtime.strftime("%F") %>,<%=d.base_price ? "\u00A5%.2f" % d.base_price : "-" %>,<%= d.end_price ? "\u00A5%.2f" % d.end_price : "-" %>,<%= "\u00A5" + number_to_human(d.total_assets || 0, unit) %>,<%= d.total_issued ? number_to_human(d.total_issued || 0, unit) : "-" %>
+<%= d.created_at.localtime.strftime("%F") %>,<%=d.base_price ? "%.2f" % d.base_price : "-" %>,<%= d.end_price ? "%.2f" % d.end_price : "-" %>,<%= "%d" % (d.total_assets || 0) %>,<%= d.total_issued ? "%d" % (d.total_issued || 0) : "-" %>
 <% end %>

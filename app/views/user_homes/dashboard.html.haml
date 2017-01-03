@@ -8,4 +8,4 @@
     = high_chart("some_id2", @chart2)
   .col-lg-8
     - distance = UserIssueService.distance_portfolio(current_user, @user_stacked)
-    = column_chart distance, {title: '差分'}
+    = column_chart distance, {title: '差分', library: {tooltip: {valueDecimals: 0}}}
