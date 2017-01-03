@@ -1,5 +1,7 @@
-PATH
-  remote: /home/kiyonori/git/lazy_high_charts
+GIT
+  remote: git://github.com/kiyonori-matsumoto/lazy_high_charts.git
+  revision: 023e43f7d63e25bc23a61a0635a7f1b3b97e36b6
+  branch: accept-stock-chart
   specs:
     lazy_high_charts (1.5.7)
       hash-deep-merge
