@@ -18,12 +18,14 @@
 
 // $enable-flex: true;
 
+@import 'bootstrap-custom';
 @import 'bootstrap';
 @import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
 
+
 body {
-     font-family: 'Noto Sans JP', sans-serif;
-     font-size: 100%;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 100%;
 }
 
 .title {

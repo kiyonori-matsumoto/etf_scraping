@@ -1,4 +1,4 @@
-%nav.navbar.navbar-fixed-top.navbar-lightl.bg-faded
+%nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
   -# %a.navbar-brand{href: '#'} Nisaで積立ETF
   %button.navbar-toggler.navbar-item.hidden-lg-up{type: 'button', data: {toggle: 'collapse', target: '#navbarResponsive'}, aria: {controls: 'navbarResponsive', expanded: false, label: 'Toggle navigation'}} &#9776;
   =link_to "Nisaで積立ETF", root_path, class: 'navbar-brand title'
@@ -8,19 +8,23 @@
         =link_to "ETF価格一覧", issues_path, class: 'nav-link'
       - if user_signed_in?
         %li.nav-item
+          =link_to 'マイページ', user_home_path, class: 'nav-link'
+        %li.nav-item
           =link_to 'ダッシュボード', dashboard_path, class: 'nav-link'
         %li.nav-item
           =link_to 'ETFを買う', new_user_issue_path, class: 'nav-link'
         %li.nav-item
           =link_to '投資信託を買う', new_user_investment_path, class: 'nav-link'
-      .float-lg-right
-        %li.dropdown.nav-item
-          %a.dropdown-toggle.nav-link#dropdownAccount{href: '#', 'data-toggle' => 'dropdown', aria: {haspopup: true, expanded: false}}
-            My Account
-          .dropdown-menu.dropdown-menu-right{'aria-libelledby' => 'dropdownAccount'}
-            =link_to 'マイページ', user_home_path, class: 'dropdown-item'
-            =link_to "設定", user_setting_path, class: 'dropdown-item'
-            =link_to "ログイン", new_user_session_path, class: 'dropdown-item'
-            =link_to "ログアウト", destroy_user_session_path, method: :delete,  class: 'dropdown-item'
+        .float-lg-right
+          %li.dropdown.nav-item
+            %a.dropdown-toggle.nav-link#dropdownAccount{href: '#', 'data-toggle' => 'dropdown', aria: {haspopup: true, expanded: false}}
+              My Account
+            .dropdown-menu.dropdown-menu-right{'aria-libelledby' => 'dropdownAccount'}
+              =link_to "設定", user_setting_path, class: 'dropdown-item'
+              =link_to "ログアウト", destroy_user_session_path, method: :delete,  class: 'dropdown-item'
+      - else
+        .float-lg-right
+          =link_to "ログイン", new_user_session_path, class: 'btn btn-outline-primary'
+          =link_to "新規作成", new_user_registration_path, class: 'btn btn-primary'
   -# .container
   -#   %ul.nav.navbar-nav
