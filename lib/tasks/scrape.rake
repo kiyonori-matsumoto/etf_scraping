@@ -2,6 +2,11 @@ require 'open-uri'
 require 'nokogiri'
 
 namespace :scrape do
+  task base: [:environment] do
+    @date = Date.now
+  end
+
+
   task nikko: [:environment] do
     base_hash = {}
     total_hash = {}
@@ -75,7 +80,7 @@ namespace :scrape do
     end
   end
 
-  task update: [:blackrock, :nikko, :daiwa, :mufg, :investment]
+  task update: [:base, :blackrock, :nikko, :daiwa, :mufg, :investment, :user]
 
   task investment: [:environment] do
     Investment.find_each do |iv|
@@ -90,6 +95,22 @@ namespace :scrape do
       daily.base_price = doc.css('.pdr10 label')[0].text.gsub(/[^\d\.]/, "").to_i
       daily.total_assets = doc.css('.pdr10 label')[1].text.gsub(/[^\d\.]/, "").to_f * 100_000_000
       daily.save
+    end
+  end
+
+  task user: [:environment] do
+    User.all.each do |current_user|
+      user_issues = UserIssueService.user_issues_total_having(current_user)
+      user_investments = UserInvestmentService.user_investments_total_having(current_user)
+      v = {}
+      [:total_paid, :current_price].each do |d|
+        v[d] = user_issues.inject(0) { |a, e| a + e[1][d] } +
+                user_investments.inject(0) { |a, e| a + e[1][d] }
+      end
+      d = UserDaily.new()
+      d.total = v[:current_price]
+      d.paid = v[:total_paid]
+      d.save!
     end
   end
 
