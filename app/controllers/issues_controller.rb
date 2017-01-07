@@ -31,7 +31,31 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @dailies = @issue.dailies.order(created_at: :desc).take(20)
-    @chart = @issue.dailies.group_by_day(:created_at, 'max', 'end_price')
+    chart1 = @issue.dailies.group_by_day(:created_at, 'max', 'end_price')
+    p chart1
+    chart2 = {}
+    if (user_signed_in?)
+      my_issue = {}
+      # p current_user.user_issues.where(issue_code: params[:id]).count
+      current_user.user_issues.where(issue_code: params[:id]).select([:bought_day, :price, :num]).each do |e|
+        my_issue[e[:bought_day].to_date] ||= {price: 0, num: 0}
+        my_issue[e[:bought_day].to_date][:price] += e[:price] * e[:num]
+        my_issue[e[:bought_day].to_date][:num] += e[:num]
+      end
+      num = 0; price = 0;
+      chart1.each do |day, _price|
+        day = day.to_date
+        if my_issue.key?(day)
+          num += my_issue[day][:num]
+          price += my_issue[day][:price]
+        end
+        p [day, num, price]
+        chart2[Time.gm(day.year, day.month, day.day)] = (num != 0) ? price / num : 0;
+      end
+      @chart = [{name: '株価', data: chart1}, {name: '平均購入価格', data: chart2, dashStyle: 'dash'}]
+    else
+      @chart = [{name: '株価', data: chart1}]
+    end
   end
 
   # GET /issues/new
