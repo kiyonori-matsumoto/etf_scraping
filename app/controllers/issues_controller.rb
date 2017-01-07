@@ -50,7 +50,7 @@ class IssuesController < ApplicationController
           price += my_issue[day][:price]
         end
         p [day, num, price]
-        chart2[Time.gm(day.year, day.month, day.day)] = (num != 0) ? price / num : 0;
+        chart2[Time.gm(day.year, day.month, day.day)] = (num != 0) ? (price / num).to_f.round(2) : 0;
       end
       @chart = [{name: '株価', data: chart1}, {name: '平均購入価格', data: chart2, dashStyle: 'dash'}]
     else

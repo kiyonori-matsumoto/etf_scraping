@@ -74,23 +74,5 @@ class UserHomesController < ApplicationController
     @chart3 = LazyHighCharts::HighChart.new('graph3') do |f|
       f.title(text: '')
     end
-
-    @chart_globals = LazyHighCharts::HighChartGlobals.new do |f|
-      f.global(useUTC: false)
-      f.chart(
-        # backgroundColor: {
-        #   linearGradient: [0, 0, 500, 500],
-        #   stops: [
-        #     [0, "rgb(255, 255, 255)"],
-        #     [1, "rgb(240, 240, 255)"]
-        #   ]
-        # },
-        plotBackgroundColor: "rgba(255, 255, 255, .9)",
-        # plotShadow: true,
-        # plotBorderWidth: 1
-      )
-      f.lang(thousandsSep: ",")
-      f.colors(["#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354"])
-    end
   end
 end

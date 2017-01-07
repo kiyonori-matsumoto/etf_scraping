@@ -1,4 +1,5 @@
 - unit = {units: {hundred: "百",:thousand => "千", :million => "百万", :billion => "十億", :trillion => "兆", :quadrillion => "千兆"}, precision: 5}
+= my_high_chart_globals
 %p#notice= notice
 
 .container_dummy
@@ -18,7 +19,7 @@
 
   %h3 価格推移
   .w-100
-    = line_chart(@chart, colors: ["#298c00", "#8f8f8f"])
+    = line_chart(@chart)
 
   %h3 過去の基準価額
   %table.table
