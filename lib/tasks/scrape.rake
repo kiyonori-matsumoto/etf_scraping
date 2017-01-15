@@ -3,7 +3,7 @@ require 'nokogiri'
 
 namespace :scrape do
   task base: [:environment] do
-    @date = Date.now
+    @date = Date.today
   end
 
 
